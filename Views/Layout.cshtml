@@ -1,0 +1,104 @@
+﻿<!DOCTYPE html>
+<html lang="@Orchard.CultureName()" dir="@Orchard.CultureDir()">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@RenderTitleSegments(Site.SiteName, "before")</title>
+    <style asp-name="@ResourceNames.TailwindCss"></style>
+    <resources type="Meta" />
+    <resources type="HeadLink" />
+    <resources type="HeadScript" />
+    <resources type="Stylesheet" />
+</head>
+<body class="min-h-screen w-full bg-white">
+    <header class="bg-[#1e3a8a] text-white">
+        <div class="max-w-7xl mx-auto p-4 flex justify-between items-center flex-col sm:flex-row">
+            <h1 class="text-2xl font-bold py-4">
+                <a href="/">@Site.SiteName</a>
+            </h1>
+            <div>
+                <menu alias="alias:main-menu" cache-id="main-menu" cache-fixed-duration="00:05:00" cache-tag="alias:main-menu" />
+
+                <button id="mobile-open-button" class="text-2xl sm:hidden focus:outline-none absolute top-5 right-5">
+                    &#9776;
+                </button>
+            </div>
+        </div>
+        <script>
+            var toggleButton = document.getElementById("mobile-open-button");
+            var menu = document.getElementById("menu");
+            var isMenuOpened = false;
+            toggleButton.addEventListener("click",()=>{
+              isMenuOpened = !isMenuOpened;
+              if(isMenuOpened) {
+                toggleButton.innerHTML = "&#9776;";
+                menu.classList.add("hidden");
+              }
+              else {
+                toggleButton.innerHTML = "&#128473;";
+                menu.classList.remove("hidden");
+              }
+            });
+        </script>
+    </header>
+    <main>
+        @await RenderBodyAsync()
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-[#1e3a8a] text-white mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">@Site.SiteName</h3>
+                    <p class="text-gray-300">
+                        Your daily dose of insights and inspiration.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Categories</h4>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><a href="/category/technology" class="hover:text-[#ef4444] transition-colors">Technology</a></li>
+                        <li><a href="/category/design" class="hover:text-[#ef4444] transition-colors">Design</a></li>
+                        <li><a href="/category/culture" class="hover:text-[#ef4444] transition-colors">Culture</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Company</h4>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><a href="#" class="hover:text-[#ef4444] transition-colors">About</a></li>
+                        <li><a href="#" class="hover:text-[#ef4444] transition-colors">Contact</a></li>
+                        <li><a href="#" class="hover:text-[#ef4444] transition-colors">Privacy</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Follow Us</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="hover:text-[#ef4444] transition-colors" data-id="element-55">
+                            <i data-lucide="twitter"></i>
+                        </a>
+                        <a href="#" class="hover:text-[#ef4444] transition-colors" data-id="element-55">
+                            <i data-lucide="facebook"></i>
+                        </a>
+                        <a href="#" class="hover:text-[#ef4444] transition-colors" data-id="element-55">
+                            <i data-lucide="instagram"></i>
+                        </a>
+                        <a href="#" class="hover:text-[#ef4444] transition-colors" data-id="element-55">
+                            <i data-lucide="linkedin"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                <p>©@DateTime.Now.Year. @Site.SiteName - All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script asp-name="@ResourceNames.LucideIcons"></script>
+    <resources Type="Footer"></resources>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

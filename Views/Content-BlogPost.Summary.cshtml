@@ -1,0 +1,39 @@
+﻿@{
+    ContentItem contentItem = Model.ContentItem;
+    var content = contentItem.Content;
+    string dateOfPublish = ((DateTime)contentItem.PublishedUtc).ToString("MMM dd, yyyy");
+}
+<!-- Article 1 -->
+<article class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow">
+    <a display-for="contentItem">
+        <img src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?w=800&h=600&fit=crop"
+             alt="@contentItem.DisplayText"
+             class="w-full h-48 object-cover">
+    </a>
+    <div class="p-6">
+        <a href="/category/design">
+            <span class="text-[#ef4444] text-sm font-semibold uppercase tracking-wide hover:underline">
+                Design
+            </span>
+        </a>
+        <a display-for="contentItem">
+            <h3 class="text-xl font-bold text-[#1e3a8a] mt-2 mb-3 hover:text-[#ef4444] transition-colors">
+                @contentItem.DisplayText
+            </h3>
+        </a>
+        <p class="text-gray-600 mb-4 line-clamp-3">
+            @content.BlogPost.Subtitle.Text
+        </p>
+        <div class="flex items-center justify-between text-sm text-gray-500">
+            <div class="flex items-center space-x-4">
+                <span class="flex items-center">
+                    👤 @contentItem.Author
+                </span>
+                <span class="flex items-center">
+                    ⏱ 6 min read
+                </span>
+            </div>
+            <span>@dateOfPublish</span>
+        </div>
+    </div>
+</article>

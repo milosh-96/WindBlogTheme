@@ -1,0 +1,15 @@
+@{
+    int level = (int)Model.Level;
+    TagBuilder tag = Tag(Model, "span");
+
+
+    
+    // Morphing the shape to keep Model untouched
+    Model.Metadata.Alternates.Clear();
+    Model.Classes.Clear();
+    Model.Metadata.Type = "MenuItemLink";
+
+
+    tag.InnerHtml.AppendHtml(await DisplayAsync(Model));
+}
+@tag

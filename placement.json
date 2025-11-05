@@ -1,0 +1,9 @@
+{
+  "TitlePart": [
+    {
+      "contentType": [ "Page" ],
+      "path": [ "/","/home" ],
+      "place": "-" // - is to hide
+    }
+  ]
+}
