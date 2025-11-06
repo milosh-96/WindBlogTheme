@@ -10,6 +10,15 @@
   "tags": [],
   "steps": [
     {
+      "name": "recipes",
+      "Values": [
+        {
+          "executionid": "TheBlogTheme",
+          "name": "Blog"
+        }
+      ]
+    },
+    {
       "name": "ContentDefinition",
       "ContentTypes": [
         {
@@ -244,6 +253,20 @@
           ]
         }
       ]
+    },
+    {
+      "name": "feature",
+      "enable": [
+        // Themes
+        "TheBlogTheme",
+        "TheAdmin",
+        "WindyBlog.WindBlogTheme"
+      ]
+    },
+    {
+      "name": "themes",
+      "admin": "TheAdmin",
+      "site": "WindyBlog.WindBlogTheme"
     }
   ]
 }
