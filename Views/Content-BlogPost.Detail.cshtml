@@ -1,0 +1,174 @@
+@{
+    ContentItem contentItem = Model.ContentItem;
+    var content = contentItem.Content;
+    string dateOfPublish = ((DateTime)contentItem.PublishedUtc).ToString("MMM dd, yyyy");
+    string selectedContentImage = content.BlogPost.Image.Paths[0];
+}
+<article class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <!-- Category -->
+    <a href="/category/technology">
+        <span class="text-[#ef4444] text-sm font-semibold uppercase tracking-wide hover:underline">Technology</span>
+    </a>
+
+    <!-- Title -->
+    <h1 class="text-4xl md:text-5xl font-bold text-[#1e3a8a] mt-4 mb-6">
+        @contentItem.DisplayText
+    </h1>
+
+    <!-- Meta -->
+    <div class="flex flex-wrap items-center gap-6 text-gray-600 mb-8 pb-8 border-b">
+        <div class="flex items-center">
+            <i data-lucide="user" class="w-5 h-5 mr-2"></i>
+            <span>@contentItem.Author</span>
+        </div>
+        <div class="flex items-center">
+            <i data-lucide="calendar" class="w-5 h-5 mr-2"></i>
+            <span>@dateOfPublish</span>
+        </div>
+        <div class="flex items-center">
+            <i data-lucide="clock" class="w-5 h-5 mr-2"></i>
+            <span>8 min read</span>
+        </div>
+        <div class="ml-auto flex items-center gap-4">
+            <button class="hover:text-[#ef4444] transition-colors">
+                <i data-lucide="share-2" class="w-5 h-5"></i>
+            </button>
+            <button class="hover:text-[#ef4444] transition-colors">
+                <i data-lucide="bookmark" class="w-5 h-5"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Featured Image -->
+    <img asset-src="@selectedContentImage"
+         alt="Article featured"
+         class="w-full rounded-lg mb-8" />
+
+    <!-- Content -->
+    <div class="prose prose-lg max-w-none">
+        <p class="text-xl text-gray-700 leading-relaxed mb-6">
+            Artificial intelligence is no longer a distant concept confined to science
+            fiction. It has become an integral part of our daily lives, transforming
+            industries and reshaping how we work, create, and innovate.
+        </p>
+
+        <h2 class="text-2xl font-bold text-[#1e3a8a] mt-8 mb-4">
+            The Creative Revolution
+        </h2>
+        <p class="text-gray-700 leading-relaxed mb-6">
+            In the creative industries, AI is proving to be both a powerful tool and a
+            collaborative partner. From generating artwork to composing music, AI
+            systems are pushing the boundaries of what's possible in creative
+            expression. Designers are using AI-powered tools to iterate faster,
+            explore more possibilities, and bring their visions to life with
+            unprecedented efficiency.
+        </p>
+        <p class="text-gray-700 leading-relaxed mb-6">
+            However, this transformation isn't about replacing human creativity—it's
+            about augmenting it. The most successful implementations of AI in creative
+            work are those that enhance human capabilities rather than attempt to
+            replicate them entirely.
+        </p>
+
+        <div class="bg-[#f5f0e6] p-6 rounded-lg my-8">
+            <p class="text-lg italic text-gray-800">
+                "AI is not here to replace artists, but to give them superpowers. It's a
+                tool that amplifies human creativity and opens new possibilities we
+                never imagined before."
+            </p>
+            <p class="text-sm text-gray-600 mt-2">
+                — Dr. Emily Rodriguez, AI Research Lead
+            </p>
+        </div>
+
+        <h2 class="text-2xl font-bold text-[#1e3a8a] mt-8 mb-4">
+            Practical Applications
+        </h2>
+        <p class="text-gray-700 leading-relaxed mb-6">
+            Today's creative professionals are leveraging AI in numerous ways. Graphic
+            designers use AI to generate color palettes and suggest layout
+            improvements. Writers employ AI assistants to overcome writer's block and
+            refine their prose. Musicians experiment with AI-generated melodies as
+            starting points for their compositions.
+        </p>
+        <p class="text-gray-700 leading-relaxed mb-6">
+            The key to successful AI integration is understanding its strengths and
+            limitations. AI excels at pattern recognition, rapid iteration, and
+            handling repetitive tasks, freeing creative professionals to focus on the
+            aspects of their work that require uniquely human insight, emotion, and
+            cultural understanding.
+        </p>
+
+        <h2 class="text-2xl font-bold text-[#1e3a8a] mt-8 mb-4">Looking Ahead</h2>
+        <p class="text-gray-700 leading-relaxed mb-6">
+            As AI technology continues to evolve, we can expect even more
+            sophisticated tools that blur the lines between human and machine
+            creativity. The future likely holds AI systems that can understand
+            context, emotion, and cultural nuance at deeper levels, making them even
+            more valuable as creative partners.
+        </p>
+        <p class="text-gray-700 leading-relaxed mb-6">
+            The challenge for creative professionals will be to adapt and learn how to
+            work alongside these powerful tools while maintaining their unique human
+            perspective and artistic vision. Those who embrace AI as a collaborative
+            tool rather than viewing it as a threat will be best positioned to thrive
+            in this new creative landscape.
+        </p>
+    </div>
+
+    <!-- Tags -->
+    <div class="flex flex-wrap gap-2 mt-12 pt-8 border-t">
+        <span class="bg-gray-100 text-gray-700 px-4 py-2 rounded-full text-sm">AI</span>
+        <span class="bg-gray-100 text-gray-700 px-4 py-2 rounded-full text-sm">Creativity</span>
+        <span class="bg-gray-100 text-gray-700 px-4 py-2 rounded-full text-sm">Technology</span>
+        <span class="bg-gray-100 text-gray-700 px-4 py-2 rounded-full text-sm">Innovation</span>
+    </div>
+</article>
+
+<!-- Related Articles -->
+<section class="bg-[#f5f0e6] py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-3xl font-bold text-[#1e3a8a] mb-8">Related Articles</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <a href="/article/11"
+               class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow">
+                <img src="https://images.unsplash.com/photo-1500100000100?w=400&h=250&fit=crop"
+                     alt="Related article"
+                     class="w-full h-48 object-cover" />
+                <div class="p-6">
+                    <span class="text-[#ef4444] text-sm font-semibold">Technology</span>
+                    <h3 class="text-xl font-bold text-[#1e3a8a] mt-2 hover:text-[#ef4444] transition-colors">
+                        Related Article Title 1
+                    </h3>
+                </div>
+            </a>
+
+            <a href="/article/12"
+               class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow">
+                <img src="https://images.unsplash.com/photo-1500200000200?w=400&h=250&fit=crop"
+                     alt="Related article"
+                     class="w-full h-48 object-cover" />
+                <div class="p-6">
+                    <span class="text-[#ef4444] text-sm font-semibold">Technology</span>
+                    <h3 class="text-xl font-bold text-[#1e3a8a] mt-2 hover:text-[#ef4444] transition-colors">
+                        Related Article Title 2
+                    </h3>
+                </div>
+            </a>
+
+            <a href="/article/13"
+               class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow">
+                <img src="https://images.unsplash.com/photo-1500300000300?w=400&h=250&fit=crop"
+                     alt="Related article"
+                     class="w-full h-48 object-cover" />
+                <div class="p-6">
+                    <span class="text-[#ef4444] text-sm font-semibold">Technology</span>
+                    <h3 class="text-xl font-bold text-[#1e3a8a] mt-2 hover:text-[#ef4444] transition-colors">
+                        Related Article Title 3
+                    </h3>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
