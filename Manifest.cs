@@ -1,9 +1,9 @@
-using OrchardCore.DisplayManagement.Manifest;
+﻿using OrchardCore.DisplayManagement.Manifest;
 
 [assembly: Theme(
     Name = "WindyBlog.WindBlogTheme",
-    Author = "The Orchard Core Team",
-    Website = "https://orchardcore.net",
+    Author = "M96 Dev (Miloš Jovanović)",
+    Website = "https://m96dev.com",
     Version = "0.0.1",
-    Description = "WindyBlog.WindBlogTheme"
+    Description = "A simple customizable widget based blog theme."
 )]

@@ -1,14 +1,9 @@
 ﻿using Microsoft.Extensions.Options;
-using OrchardCore.Environment.Extensions;
 using OrchardCore.ResourceManagement;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WindyBlog.WindBlogTheme.Constants;
 
 namespace WindyBlog.WindBlogTheme;
+
 public sealed class ResourceManagementOptionsConfiguration : IConfigureOptions<ResourceManagementOptions>
 {
     private static readonly ResourceManifest _manifest;
@@ -19,10 +14,10 @@ public sealed class ResourceManagementOptionsConfiguration : IConfigureOptions<R
 
         _manifest.DefineStyle(ResourceNames.TailwindCss)
             .SetUrl("~/WindyBlog.WindBlogTheme/css/app.css")
-            .SetVersion("4.1.16");
+            .SetVersion("3.4.10");
         _manifest.DefineScript(ResourceNames.LucideIcons)
             .SetCdn("https://unpkg.com/lucide@latest")
-            .SetVersion("0.548.0");
+            .SetVersion("0.552.0");
     }
     public void Configure(ResourceManagementOptions options)
     {

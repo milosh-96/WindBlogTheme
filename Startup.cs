@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using OrchardCore.Modules;
-using OrchardCore.Resources;
 
 namespace WindyBlog.WindBlogTheme;
 public sealed class Startup : StartupBase
