@@ -1,3 +1,27 @@
 ﻿@tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+blockquote {
+    @apply bg-[#f5f0e6] p-6 rounded-lg my-8 border-x-0 !important;
+}
+
+    blockquote p {
+        @apply text-lg italic text-gray-800 my-0 !important;
+    }
+
+        blockquote p:nth-child(1):after {
+            content: close-quote;
+        }
+
+        blockquote p:nth-child(2):before {
+            content: " — " !important;
+        }
+
+        blockquote p:nth-child(2):after {
+            content: "" !important;
+        }
+
+        blockquote p:nth-child(2) {
+            @apply text-sm text-gray-600 mt-2 !important;
+        }
