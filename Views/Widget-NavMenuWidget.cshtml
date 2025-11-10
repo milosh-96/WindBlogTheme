@@ -1,0 +1,10 @@
+@inject IContentManager contentManager;
+@{
+    var contentItem = Model.ContentItem;
+    string menuId = (string)contentItem.Content.NavMenuWidget.Menu.ContentItemIds[0];
+    ContentItem menu = await contentManager.GetAsync(menuId);
+    string alias = menu.Content.AliasPart.Alias;
+}
+<div class="nav-widget">
+    <menu alias="alias:@alias" cache-id="@alias" cache-fixed-duration="00:05:00" cache-tag="alias:@alias" />
+</div>

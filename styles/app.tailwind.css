@@ -25,3 +25,11 @@ blockquote {
         blockquote p:nth-child(2) {
             @apply text-sm text-gray-600 mt-2 !important;
         }
+
+#header-menu > nav {
+    @apply flex space-y-2 flex-col sm:flex-row sm:justify-center sm:space-x-4 sm:space-y-0;
+}
+
+footer .nav-widget > nav {
+    @apply flex flex-col;
+}

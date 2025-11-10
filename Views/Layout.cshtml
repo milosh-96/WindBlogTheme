@@ -17,8 +17,9 @@
                 <a href="/">@Site.SiteName</a>
             </h1>
             <div>
-                <menu alias="alias:main-menu" cache-id="main-menu" cache-fixed-duration="00:05:00" cache-tag="alias:main-menu" />
-
+                <div id="header-menu" class="hidden sm:flex">
+                    <menu alias="alias:main-menu" cache-id="main-menu" cache-fixed-duration="00:05:00" cache-tag="alias:main-menu" />
+                </div>
                 <button id="mobile-open-button" class="text-2xl sm:hidden focus:outline-none absolute top-5 right-5">
                     &#9776;
                 </button>
@@ -26,7 +27,7 @@
         </div>
         <script>
             var toggleButton = document.getElementById("mobile-open-button");
-            var menu = document.getElementById("menu");
+            var menu = document.querySelector("#header-menu");
             var isMenuOpened = false;
             toggleButton.addEventListener("click",()=>{
               isMenuOpened = !isMenuOpened;
@@ -49,7 +50,8 @@
     <footer class="bg-[#1e3a8a] text-white mt-20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-                <div>
+                @await RenderSectionAsync("Footer", false)
+                @* <div>
                     <h3 class="text-xl font-bold mb-4">@Site.SiteName</h3>
                     <p class="text-gray-300">
                         Your daily dose of insights and inspiration.
@@ -87,7 +89,7 @@
                             <i data-lucide="linkedin"></i>
                         </a>
                     </div>
-                </div>
+                </div> *@
             </div>
             <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
                 <p>©@DateTime.Now.Year. @Site.SiteName - All rights reserved.</p>
