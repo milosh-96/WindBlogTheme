@@ -177,6 +177,37 @@
               }
             }
           ]
+        },
+        {
+          "Name": "NavMenuWidget",
+          "DisplayName": "NavMenuWidget",
+          "Settings": {
+            "ContentTypeSettings": {
+              "Creatable": false,
+              "Listable": false,
+              "Draftable": false,
+              "Versionable": false,
+              "Stereotype": "Widget",
+              "Securable": false,
+              "Description": "Renders a menu shape."
+            },
+            "FullTextAspectSettings": {
+              "IncludeFullTextTemplate": false,
+              "IncludeBodyAspect": true,
+              "IncludeDisplayText": true
+            }
+          },
+          "ContentTypePartDefinitionRecords": [
+            {
+              "PartName": "NavMenuWidget",
+              "Name": "NavMenuWidget",
+              "Settings": {
+                "ContentTypePartSettings": {
+                  "Position": "0"
+                }
+              }
+            }
+          ]
         }
       ],
       "ContentParts": [
@@ -247,6 +278,32 @@
                 },
                 "TextFieldSettings": {
                   "Required": true
+                }
+              }
+            }
+          ]
+        },
+        {
+          "Name": "NavMenuWidget",
+          "Settings": {},
+          "ContentPartFieldDefinitionRecords": [
+            {
+              "FieldName": "ContentPickerField",
+              "Name": "Menu",
+              "Settings": {
+                "ContentPartFieldSettings": {
+                  "DisplayName": "Menu",
+                  "Position": "0"
+                },
+                "ContentPickerFieldSettings": {
+                  "Required": true,
+                  "Multiple": false,
+                  "DisplayAllContentTypes": false,
+                  "DisplayedContentTypes": [
+                    "Menu"
+                  ],
+                  "DisplayedStereotypes": [],
+                  "TitlePattern": "{{ Model.ContentItem | display_text }}"
                 }
               }
             }
