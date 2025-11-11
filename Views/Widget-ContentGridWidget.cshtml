@@ -2,8 +2,8 @@
 @inject IContentItemDisplayManager displayManager;
 @{
     ContentItem contentItem = Model.ContentItem;
-    var contentGridWidget = contentItem.Content.ContentGridWidget;
-    var items = await Orchard.ContentQueryAsync((string)contentGridWidget.QueryName.Text);
+    var queryPart = contentItem.Content.QueryPart;
+    var items = await Orchard.ContentQueryAsync((string)queryPart.Query.Text);
 }
 
 <section class="py-16">
@@ -14,7 +14,7 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             @foreach (ContentItem item in items)
             {
-                var itemContent = await displayManager.BuildDisplayAsync(item, null, "Summary");
+                IShape itemContent = await displayManager.BuildDisplayAsync(item, null, "Summary");
 
                 @await DisplayAsync(itemContent)
             }

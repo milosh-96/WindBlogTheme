@@ -1,50 +1,52 @@
 @inject IContentManager contentManager
 @{
     string selectedContentId = (string)Model.ContentItem.Content.FeaturedPostWidget.SelectedContent.ContentItemIds[0];
-    ContentItem selectedContent = await contentManager.GetAsync(selectedContentId);
+    ContentItem selectedContentItem = await contentManager.GetAsync(selectedContentId);
     dynamic selectedContentType = null;
-    string selectedContentDateOfPublish = ((DateTime)selectedContent.PublishedUtc).ToString("MMM dd, yyyy");
-    switch(selectedContent.ContentType)
+    string selectedContentDateOfPublish = ((DateTime)selectedContentItem.PublishedUtc).ToString("MMM dd, yyyy");
+    switch(selectedContentItem.ContentType)
     {
         case "Article":
-            selectedContentType = selectedContent.Content.Article;
+            selectedContentType = selectedContentItem.Content.Article;
             break;
         case "BlogPost":
-            selectedContentType = selectedContent.Content.BlogPost;
+            selectedContentType = selectedContentItem.Content.BlogPost;
             break;
     }
 
     string selectedContentImage = selectedContentType.Image.Paths[0];
     var selectedContentTags = selectedContentType.Tags;
-
+    var selectedContentCategory = selectedContentType.Category;
+    var category = await Orchard.GetTaxonomyTermAsync((string)selectedContentCategory.TaxonomyContentItemId, (string)selectedContentCategory.TermContentItemIds[0]);
 }
 <section class="bg-[#f5f0e6] py-16">
+    @Orchard.ConsoleLog(selectedContentCategory as object);
+
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
-                <a href="/category/technology">
+                <a display-for="@category">
                     <p class="text-[#ef4444] text-sm font-semibold uppercase tracking-wide hover:underline">
-                        Featured <i data-lucide="dot" class="inline-flex"></i>
+                        @category.DisplayText <i data-lucide="dot" class="inline-flex"></i>
                         @foreach(var termId in selectedContentTags.TermContentItemIds)
                         {
                             var item = await Orchard.GetTaxonomyTermAsync((string)selectedContentTags.TaxonomyContentItemId, (string)termId);
                             <span><a display-for="@item">@item.DisplayText</a></span>
                         }
-
                     </p>
                 </a>
-                <a href="/article/1">
+                <a display-for="@selectedContentItem">
                     <h1 class="text-4xl md:text-5xl font-bold text-[#1e3a8a] mt-4 mb-6 hover:text-[#ef4444] transition-colors">
-                        @selectedContent.DisplayText
+                        @selectedContentItem.DisplayText
                     </h1>
                 </a>
                 <p class="text-xl text-gray-700 mb-6">
                     @(selectedContentType.Subtitle.Text ?? "")
                 </p>
                 <div class="flex items-center space-x-4 text-gray-600 mb-6">
-                    <span>@selectedContent.Author</span><span> <i data-lucide="dot" class="inline-flex"></i></span><span>@selectedContentDateOfPublish</span><span> <i data-lucide="dot" class="inline-flex"></i></span><span>8 min read</span>
+                    <span>@selectedContentItem.Author</span><span> <i data-lucide="dot" class="inline-flex"></i></span><span>@selectedContentDateOfPublish</span><span> <i data-lucide="dot" class="inline-flex"></i></span><span>8 min read</span>
                 </div>
-                <a display-for="@selectedContent" class="inline-flex items-center bg-[#ef4444] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#dc2626] transition-colors">
+                <a display-for="@selectedContentItem" class="inline-flex items-center bg-[#ef4444] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#dc2626] transition-colors">
                     Read Article
                     <!-- Arrow Icon -->
                     <i data-lucide="arrow-right"></i>
@@ -53,7 +55,7 @@
             @if(!string.IsNullOrEmpty(selectedContentImage))
             {
                 <div>
-                    <img asset-src="@selectedContentImage" alt="@selectedContent.DisplayText" class="rounded-lg shadow-2xl w-full" />
+                    <img asset-src="@selectedContentImage" alt="@selectedContentItem.DisplayText" class="rounded-lg shadow-2xl w-full" />
                 </div>
             }
         </div>
