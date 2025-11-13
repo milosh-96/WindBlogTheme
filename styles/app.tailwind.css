@@ -31,5 +31,13 @@ blockquote {
 }
 
 footer .nav-widget > nav {
-    @apply flex flex-col;
+    @apply flex flex-col space-y-2 text-gray-300;
+}
+footer .nav-widget > nav  a {
+        @apply hover:text-[#ef4444] transition-colors;
+}
+
+
+.widget-container-title {
+    @apply font-semibold mb-4;
 }
