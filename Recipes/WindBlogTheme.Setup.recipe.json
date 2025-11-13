@@ -3,8 +3,8 @@
   "displayName": "Wind Blog Theme Setup recipe",
   "description": "Content types (widgets) for this theme.",
   "author": "M96",
-  "website": "",
-  "version": "0.9",
+  "website": "https://m96dev.com",
+  "version": "1.0.0",
   "issetuprecipe": true,
   "categories": [],
   "tags": [],
@@ -175,6 +175,15 @@
                   "Position": "0"
                 }
               }
+            },
+            {
+              "PartName": "QueryPart",
+              "Name": "QueryPart",
+              "Settings": {
+                "ContentTypePartSettings": {
+                  "Position": "2"
+                }
+              }
             }
           ]
         },
@@ -188,8 +197,7 @@
               "Draftable": false,
               "Versionable": false,
               "Stereotype": "Widget",
-              "Securable": false,
-              "Description": "Renders a menu shape."
+              "Securable": false
             },
             "FullTextAspectSettings": {
               "IncludeFullTextTemplate": false,
@@ -201,6 +209,119 @@
             {
               "PartName": "NavMenuWidget",
               "Name": "NavMenuWidget",
+              "Settings": {}
+            }
+          ]
+        },
+        {
+          "Name": "SocialNetworksWidget",
+          "DisplayName": "SocialNetworksWidget",
+          "Settings": {
+            "ContentTypeSettings": {
+              "Creatable": false,
+              "Listable": false,
+              "Draftable": false,
+              "Versionable": false,
+              "Stereotype": "Widget",
+              "Securable": false
+            },
+            "FullTextAspectSettings": {
+              "IncludeFullTextTemplate": false,
+              "IncludeBodyAspect": true,
+              "IncludeDisplayText": true
+            }
+          },
+          "ContentTypePartDefinitionRecords": [
+            {
+              "PartName": "SocialNetworksWidget",
+              "Name": "SocialNetworksWidget",
+              "Settings": {}
+            },
+            {
+              "PartName": "BagPart",
+              "Name": "BagPart",
+              "Settings": {
+                "ContentTypePartSettings": {
+                  "DisplayName": "Bag",
+                  "Description": "Provides a collection behavior for your content item where you can place other content items.",
+                  "Position": "0"
+                },
+                "BagPartSettings": {
+                  "ContainedContentTypes": [
+                    "SocialNetworkIcon"
+                  ],
+                  "ContainedStereotypes": [],
+                  "DisplayType": "Detail"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "Name": "SocialNetworkIcon",
+          "DisplayName": "SocialNetworkIcon",
+          "Settings": {
+            "ContentTypeSettings": {
+              "Creatable": false,
+              "Listable": false,
+              "Draftable": false,
+              "Versionable": false,
+              "Securable": false
+            },
+            "FullTextAspectSettings": {
+              "IncludeFullTextTemplate": false,
+              "IncludeBodyAspect": true,
+              "IncludeDisplayText": true
+            }
+          },
+          "ContentTypePartDefinitionRecords": [
+            {
+              "PartName": "SocialNetworkIcon",
+              "Name": "SocialNetworkIcon",
+              "Settings": {
+                "ContentTypePartSettings": {
+                  "Position": "1"
+                }
+              }
+            },
+            {
+              "PartName": "TitlePart",
+              "Name": "TitlePart",
+              "Settings": {
+                "ContentTypePartSettings": {
+                  "Position": "0"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "Name": "LiquidWidget",
+          "DisplayName": "Liquid Widget",
+          "Settings": {
+            "ContentTypeSettings": {
+              "Creatable": false,
+              "Listable": false,
+              "Draftable": false,
+              "Versionable": false,
+              "Stereotype": "Widget",
+              "Securable": false
+            },
+            "FullTextAspectSettings": {
+              "IncludeFullTextTemplate": false,
+              "IncludeBodyAspect": true,
+              "IncludeDisplayText": true
+            }
+          },
+          "ContentTypePartDefinitionRecords": [
+            {
+              "PartName": "LiquidWidget",
+              "Name": "LiquidWidget",
+              "Settings": {}
+            },
+            {
+              "PartName": "LiquidPart",
+              "Name": "LiquidPart",
               "Settings": {
                 "ContentTypePartSettings": {
                   "Position": "0"
@@ -267,21 +388,7 @@
         {
           "Name": "ContentGridWidget",
           "Settings": {},
-          "ContentPartFieldDefinitionRecords": [
-            {
-              "FieldName": "TextField",
-              "Name": "QueryName",
-              "Settings": {
-                "ContentPartFieldSettings": {
-                  "DisplayName": "QueryName",
-                  "Position": "0"
-                },
-                "TextFieldSettings": {
-                  "Required": true
-                }
-              }
-            }
-          ]
+          "ContentPartFieldDefinitionRecords": []
         },
         {
           "Name": "NavMenuWidget",
@@ -292,11 +399,10 @@
               "Name": "Menu",
               "Settings": {
                 "ContentPartFieldSettings": {
-                  "DisplayName": "Menu",
-                  "Position": "0"
+                  "DisplayName": "Menu"
                 },
                 "ContentPickerFieldSettings": {
-                  "Required": true,
+                  "Required": false,
                   "Multiple": false,
                   "DisplayAllContentTypes": false,
                   "DisplayedContentTypes": [
@@ -305,6 +411,121 @@
                   "DisplayedStereotypes": [],
                   "TitlePattern": "{{ Model.ContentItem | display_text }}"
                 }
+              }
+            }
+          ]
+        },
+        {
+          "Name": "QueryPart",
+          "Settings": {
+            "ContentPartSettings": {
+              "Attachable": true,
+              "Reusable": false,
+              "Description": "Allows users to enter query for fetching items."
+            }
+          },
+          "ContentPartFieldDefinitionRecords": [
+            {
+              "FieldName": "TextField",
+              "Name": "Query",
+              "Settings": {
+                "ContentPartFieldSettings": {
+                  "DisplayName": "Query",
+                  "Position": "0"
+                },
+                "TextFieldSettings": {
+                  "Hint": "Enter the name of the query you want to load. You can find and define queries in \u0022Search \u003E Queries \u003E All queries\u0022.",
+                  "Required": true
+                }
+              }
+            }
+          ]
+        },
+        {
+          "Name": "SocialNetworkIcon",
+          "Settings": {},
+          "ContentPartFieldDefinitionRecords": [
+            {
+              "FieldName": "LinkField",
+              "Name": "Link",
+              "Settings": {
+                "ContentPartFieldSettings": {
+                  "DisplayName": "Link",
+                  "Position": "1"
+                }
+              }
+            },
+            {
+              "FieldName": "TextField",
+              "Name": "LucideIcon",
+              "Settings": {
+                "ContentPartFieldSettings": {
+                  "DisplayName": "Lucide Icon",
+                  "Position": "0"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "deployment",
+      "Plans": [
+        {
+          "Name": "Main",
+          "Steps": [
+            {
+              "Type": "ContentDefinitionDeploymentStep",
+              "Step": {
+                "$type": "OrchardCore.ContentTypes.Deployment.ContentDefinitionDeploymentStep, OrchardCore.ContentTypes",
+                "IncludeAll": false,
+                "ContentTypes": [
+                  "AnnouncementWidget",
+                  "ContentGridWidget",
+                  "FeaturedPostWidget",
+                  "LiquidWidget",
+                  "NavMenuWidget",
+                  "SocialNetworkIcon",
+                  "SocialNetworksWidget"
+                ],
+                "ContentParts": [
+                  "AnnouncementWidget",
+                  "ContentGridWidget",
+                  "FeaturedPostWidget",
+                  "LiquidWidget",
+                  "NavMenuWidget",
+                  "SocialNetworkIcon",
+                  "SocialNetworksWidget",
+                  "QueryPart"
+                ],
+                "Id": "4593fdb85cf349ffae9f3567f200c161",
+                "Name": "ContentDefinition"
+              }
+            },
+            {
+              "Type": "DeploymentPlanDeploymentStep",
+              "Step": {
+                "$type": "OrchardCore.Deployment.Deployment.DeploymentPlanDeploymentStep, OrchardCore.Deployment",
+                "IncludeAll": true,
+                "DeploymentPlanNames": [],
+                "Id": "064a6c98cad042bb92472a3035fce55f",
+                "Name": "DeploymentPlan"
+              }
+            },
+            {
+              "Type": "RecipeFileDeploymentStep",
+              "Step": {
+                "$type": "OrchardCore.Deployment.Steps.RecipeFileDeploymentStep, OrchardCore.Deployment",
+                "RecipeName": "WindBlogTheme.Setup",
+                "DisplayName": "Wind Blog Theme Setup recipe",
+                "Author": "M96 ",
+                "WebSite": "https://m96dev.com",
+                "Version": "1.0.0",
+                "Description": "Content types (widgets) for this theme.",
+                "IsSetupRecipe": true,
+                "Id": "83364e4854be4ff6a38752941d4ff65b",
+                "Name": "RecipeFileDeploymentStep"
               }
             }
           ]
