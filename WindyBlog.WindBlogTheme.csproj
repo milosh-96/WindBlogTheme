@@ -23,6 +23,7 @@
     <PackageReference Include="OrchardCore.Taxonomies" Version="2.2.0" />
     <PackageReference Include="OrchardCore.Queries" Version="2.2.0" />
     <PackageReference Include="OrchardCore.Markdown" Version="2.2.0" />
+    <PackageReference Include="OrchardCore.Localization.Abstractions" Version="2.2.0" />
   </ItemGroup>
 
 </Project>

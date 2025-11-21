@@ -1,23 +1,33 @@
+@using Microsoft.AspNetCore.Mvc.Localization
 @using OrchardCore.ContentManagement.Display
-@using YesSql.Services
+@using System.Text.Json.Nodes
 @inject IContentItemDisplayManager displayManager
-
 @{
     ContentItem? contentItem = Model.ContentItem as ContentItem;
 }
+
 @if (contentItem is not null)
 {
+    var countOfItemsQuery = (await Orchard.QueryAsync("TaxonomyTermItemsCount", new Dictionary<string, object>()
+    {
+        {"taxonomyContentItemId", (string)contentItem.Content.TermPart.TaxonomyContentItemId},
+        {"termContentItemId",(string)contentItem.ContentItemId }
+    })).Cast<dynamic>();
+    var countOfItems = countOfItemsQuery.First()["result"];
     /* todo: implement articles count and ordering */
+
     <section class="bg-[#1e3a8a] text-white py-16">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h1 class="text-4xl md:text-5xl font-bold mb-4">@contentItem.DisplayText</h1>
             <p class="text-xl text-gray-300">Discover the latest articles and insights about technology</p>
-        </div> 
+        </div>
     </section>
     <section class="py-16">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center mb-8">
-                <p class="text-gray-600">6 articles found</p>
+                <p class="text-gray-600">
+                   @countOfItems @T.Plural((int)countOfItems, "article found", "articles found")
+                </p>
                 <select class="border border-gray-300 rounded-lg px-4 py-2">
                     <option data-id="element-190">Latest</option>
                     <option data-id="element-191">Most Popular</option>
