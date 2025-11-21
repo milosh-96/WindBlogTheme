@@ -13,17 +13,6 @@
       "name": "Queries",
       "Queries": [
         {
-          "Name": "RecentBlogPosts",
-          "Source": "Sql",
-          "Schema": "{\r\n    \u0022type\u0022: \u0022ContentItem/BlogPost\u0022\r\n}",
-          "ReturnContentItems": true,
-          "Properties": {
-            "SqlQueryMetadata": {
-              "Template": "SELECT DocumentId FROM ContentItemIndex WHERE ContentType=\u0027BlogPost\u0027 ORDER BY CreatedUtc DESC LIMIT @limit:3"
-            }
-          }
-        },
-        {
           "Name": "TaxonomyTermItemsCount",
           "Source": "Sql",
           "Schema": "{\r\n    \r\n}",
