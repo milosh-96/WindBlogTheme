@@ -1,0 +1,17 @@
+@using OrchardCore.Taxonomies.ViewModels
+@model TermPartViewModel
+
+@if (Model.ContentItems.Any())
+{
+        @foreach (var contentItem in Model.ContentItems)
+        {
+            var contentItemSummary = await Orchard.DisplayAsync(contentItem, "Summary");
+                @await DisplayAsync(contentItemSummary)
+        }
+}
+else
+{
+    <p class="alert alert-warning">@T["The list is empty"]</p>
+}
+
+@await DisplayAsync(Model.Pager)

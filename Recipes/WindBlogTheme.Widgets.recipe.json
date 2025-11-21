@@ -1,23 +1,14 @@
 {
-  "name": "WindBlogTheme.Setup",
-  "displayName": "Wind Blog Theme Setup recipe",
+  "name": "WindBlogTheme.Widgets",
+  "displayName": "Wind Blog Theme Widgets recipe",
   "description": "Content types (widgets) for this theme.",
   "author": "M96",
   "website": "https://m96dev.com",
   "version": "1.0.0",
-  "issetuprecipe": true,
+  "issetuprecipe": false,
   "categories": [],
   "tags": [],
   "steps": [
-    {
-      "name": "recipes",
-      "Values": [
-        {
-          "executionid": "TheBlogTheme",
-          "name": "Blog"
-        }
-      ]
-    },
     {
       "name": "ContentDefinition",
       "ContentTypes": [
@@ -50,7 +41,7 @@
               "Name": "HtmlBodyPart",
               "Settings": {
                 "ContentTypePartSettings": {
-                  "Position": "1"
+                  "Position": "1"s
                 }
               }
             },
@@ -468,83 +459,6 @@
           ]
         }
       ]
-    },
-    {
-      "name": "deployment",
-      "Plans": [
-        {
-          "Name": "Main",
-          "Steps": [
-            {
-              "Type": "ContentDefinitionDeploymentStep",
-              "Step": {
-                "$type": "OrchardCore.ContentTypes.Deployment.ContentDefinitionDeploymentStep, OrchardCore.ContentTypes",
-                "IncludeAll": false,
-                "ContentTypes": [
-                  "AnnouncementWidget",
-                  "ContentGridWidget",
-                  "FeaturedPostWidget",
-                  "LiquidWidget",
-                  "NavMenuWidget",
-                  "SocialNetworkIcon",
-                  "SocialNetworksWidget"
-                ],
-                "ContentParts": [
-                  "AnnouncementWidget",
-                  "ContentGridWidget",
-                  "FeaturedPostWidget",
-                  "LiquidWidget",
-                  "NavMenuWidget",
-                  "SocialNetworkIcon",
-                  "SocialNetworksWidget",
-                  "QueryPart"
-                ],
-                "Id": "4593fdb85cf349ffae9f3567f200c161",
-                "Name": "ContentDefinition"
-              }
-            },
-            {
-              "Type": "DeploymentPlanDeploymentStep",
-              "Step": {
-                "$type": "OrchardCore.Deployment.Deployment.DeploymentPlanDeploymentStep, OrchardCore.Deployment",
-                "IncludeAll": true,
-                "DeploymentPlanNames": [],
-                "Id": "064a6c98cad042bb92472a3035fce55f",
-                "Name": "DeploymentPlan"
-              }
-            },
-            {
-              "Type": "RecipeFileDeploymentStep",
-              "Step": {
-                "$type": "OrchardCore.Deployment.Steps.RecipeFileDeploymentStep, OrchardCore.Deployment",
-                "RecipeName": "WindBlogTheme.Setup",
-                "DisplayName": "Wind Blog Theme Setup recipe",
-                "Author": "M96 ",
-                "WebSite": "https://m96dev.com",
-                "Version": "1.0.0",
-                "Description": "Content types (widgets) for this theme.",
-                "IsSetupRecipe": true,
-                "Id": "83364e4854be4ff6a38752941d4ff65b",
-                "Name": "RecipeFileDeploymentStep"
-              }
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "feature",
-      "enable": [
-        // Themes
-        "TheBlogTheme",
-        "TheAdmin",
-        "WindyBlog.WindBlogTheme"
-      ]
-    },
-    {
-      "name": "themes",
-      "admin": "TheAdmin",
-      "site": "WindyBlog.WindBlogTheme"
     }
   ]
 }
