@@ -4,11 +4,17 @@
     string dateOfPublish = ((DateTime)contentItem.PublishedUtc).ToString("MMM dd, yyyy");
     string selectedContentImage = content.BlogPost.Image.Paths[0];
     var selectedContentTags = content.BlogPost.Tags;
+    var selectedContentCategory = content.BlogPost.Category;
+
+    var category = await Orchard.GetTaxonomyTermAsync(
+        (string)selectedContentCategory.TaxonomyContentItemId,
+        (string)selectedContentCategory.TermContentItemIds[0]
+    );
 }
 <article class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     <!-- Category -->
-    <a href="/category/technology">
-        <span class="text-[#ef4444] text-sm font-semibold uppercase tracking-wide hover:underline">Technology</span>
+    <a display-for="@category">
+        <span class="text-[#ef4444] text-sm font-semibold uppercase tracking-wide hover:underline">@category</span>
     </a>
 
     <!-- Title -->

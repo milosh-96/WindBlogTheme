@@ -3,6 +3,13 @@
     var content = contentItem.Content;
     string dateOfPublish = ((DateTime)contentItem.PublishedUtc).ToString("MMM dd, yyyy");
     string selectedContentImage = content.BlogPost.Image.Paths[0];
+    var selectedContentCategory = content.BlogPost.Category;
+
+    var category = await Orchard.GetTaxonomyTermAsync(
+        (string)selectedContentCategory.TaxonomyContentItemId, 
+        (string)selectedContentCategory.TermContentItemIds[0]
+    );
+
 }
 <!-- Article 1 -->
 <article class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow">
@@ -10,9 +17,9 @@
         <img asset-src="@selectedContentImage" alt="@contentItem.DisplayText" class="w-full h-48 object-cover" />
     </a>
     <div class="p-6">
-        <a href="/category/design">
+        <a display-for="@category">
             <span class="text-[#ef4444] text-sm font-semibold uppercase tracking-wide hover:underline">
-                Design
+                @category
             </span>
         </a>
         <a display-for="contentItem">

@@ -2,6 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
+
+.bg-000000 {
+    @apply bg-[#000000];
+}
+.bg-ff0000 {
+    @apply bg-[#ff0000];
+}
+.bg-003366 {
+    @apply bg-[#003366];
+}
+.bg-1e3a8a {
+    @apply bg-[#1e3a8a];
+}
+
+
 blockquote {
     @apply bg-[#f5f0e6] p-6 rounded-lg my-8 border-x-0 !important;
 }
