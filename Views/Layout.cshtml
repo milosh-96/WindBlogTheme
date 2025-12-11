@@ -17,7 +17,7 @@
 <body class="min-h-screen w-full bg-white">
     @{
         WindBlogThemeSettings themeSettings = (await _siteService.GetCustomSettingsAsync(ContentTypes.WindBlogThemeSettings)).As<WindBlogThemeSettings>();
-        string primaryColorClass;
+        string primaryColorClass = ColorClasses.Colors.Values.First();
         try
         {
             primaryColorClass = ColorClasses.Colors[themeSettings.PrimaryColor.Text];
@@ -25,8 +25,10 @@
         catch (KeyNotFoundException ex)
         {
             @Orchard.ConsoleLog(T["The requested key for the color wasn't found."])
-            ;
-            primaryColorClass = "bg-1e3a8a";
+        }
+        catch (NullReferenceException ex)
+        {
+            @Orchard.ConsoleLog(T["The color wasn't set."])
         }
     }
 
