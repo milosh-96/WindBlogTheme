@@ -138,48 +138,5 @@
 
 <!-- Related Articles -->
 <section class="bg-[#f5f0e6] py-16">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="text-3xl font-bold text-[#1e3a8a] mb-8">Related Articles</h2>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <a href="/article/11"
-               class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow">
-                <img src="https://images.unsplash.com/photo-1500100000100?w=400&h=250&fit=crop"
-                     alt="Related article"
-                     class="w-full h-48 object-cover" />
-                <div class="p-6">
-                    <span class="text-[#ef4444] text-sm font-semibold">Technology</span>
-                    <h3 class="text-xl font-bold text-[#1e3a8a] mt-2 hover:text-[#ef4444] transition-colors">
-                        Related Article Title 1
-                    </h3>
-                </div>
-            </a>
-
-            <a href="/article/12"
-               class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow">
-                <img src="https://images.unsplash.com/photo-1500200000200?w=400&h=250&fit=crop"
-                     alt="Related article"
-                     class="w-full h-48 object-cover" />
-                <div class="p-6">
-                    <span class="text-[#ef4444] text-sm font-semibold">Technology</span>
-                    <h3 class="text-xl font-bold text-[#1e3a8a] mt-2 hover:text-[#ef4444] transition-colors">
-                        Related Article Title 2
-                    </h3>
-                </div>
-            </a>
-
-            <a href="/article/13"
-               class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow">
-                <img src="https://images.unsplash.com/photo-1500300000300?w=400&h=250&fit=crop"
-                     alt="Related article"
-                     class="w-full h-48 object-cover" />
-                <div class="p-6">
-                    <span class="text-[#ef4444] text-sm font-semibold">Technology</span>
-                    <h3 class="text-xl font-bold text-[#1e3a8a] mt-2 hover:text-[#ef4444] transition-colors">
-                        Related Article Title 3
-                    </h3>
-                </div>
-            </a>
-        </div>
-    </div>
+    @await RenderSectionAsync("BlogPostArticleBelowContent", false)
 </section>
