@@ -17,19 +17,7 @@
 <body class="min-h-screen w-full bg-white">
     @{
         WindBlogThemeSettings themeSettings = (await _siteService.GetCustomSettingsAsync(ContentTypes.WindBlogThemeSettings)).As<WindBlogThemeSettings>();
-        string primaryColorClass = ColorClasses.Colors.Values.First();
-        try
-        {
-            primaryColorClass = ColorClasses.Colors[themeSettings.PrimaryColor.Text];
-        }
-        catch (KeyNotFoundException ex)
-        {
-            @Orchard.ConsoleLog(T["The requested key for the color wasn't found."])
-        }
-        catch (NullReferenceException ex)
-        {
-            @Orchard.ConsoleLog(T["The color wasn't set."])
-        }
+        string primaryColorClass = ColorClasses.GetColorClass(themeSettings.PrimaryColor.Text) ?? ColorClasses.GetColorClass(ColorClasses.SupportedColors.First());
     }
     <header class="@primaryColorClass text-white">
         <div class="max-w-7xl mx-auto p-4 flex justify-between items-center flex-col sm:flex-row">
