@@ -13,6 +13,17 @@
       "name": "Queries",
       "Queries": [
         {
+          "Name": "RecentBlogPosts",
+          "Source": "Sql",
+          "Schema": "{\r\n    \u0022type\u0022: \u0022ContentItem/BlogPost\u0022\r\n}",
+          "ReturnContentItems": true,
+          "Properties": {
+            "SqlQueryMetadata": {
+              "Template": "SELECT DocumentId FROM ContentItemIndex WHERE ContentType=\u0027BlogPost\u0027 ORDER BY CreatedUtc DESC LIMIT @limit:3"
+            }
+          }
+        },
+        {
           "Name": "TaxonomyTermItemsCount",
           "Source": "Sql",
           "Schema": "{\r\n    \r\n}",
@@ -20,6 +31,28 @@
           "Properties": {
             "SqlQueryMetadata": {
               "Template": "SELECT COUNT(*) AS result FROM TaxonomyIndex WHERE TaxonomyContentItemId = @taxonomyContentItemId AND  TermContentItemId = @termContentItemId AND Published = 1"
+            }
+          }
+        },
+        {
+          "Name": "CategoryPosts",
+          "Source": "Sql",
+          "Schema": "{\r\n    \u0022type\u0022: \u0022ContentItem/BlogPost\u0022\r\n}",
+          "ReturnContentItems": true,
+          "Properties": {
+            "SqlQueryMetadata": {
+              "Template": "SELECT DocumentId FROM TaxonomyIndex \r\nWHERE TermContentItemId = @categoryId \r\nAND TaxonomyIndex.Latest = True \r\nAND TaxonomyIndex.Published = True\r\nAND ContentType = \u0027BlogPost\u0027\r\nLIMIT @limit:3\r\n;"
+            }
+          }
+        },
+        {
+          "Name": "RandomCategoryPosts",
+          "Source": "Sql",
+          "Schema": "{\r\n    \u0022type\u0022: \u0022ContentItem/BlogPost\u0022\r\n}",
+          "ReturnContentItems": true,
+          "Properties": {
+            "SqlQueryMetadata": {
+              "Template": "SELECT DocumentId FROM TaxonomyIndex \r\nWHERE TermContentItemId = @categoryId \r\nAND TaxonomyIndex.Latest = True \r\nAND TaxonomyIndex.Published = True\r\nAND ContentType = \u0027BlogPost\u0027\r\nORDER BY random()\r\nLIMIT @limit:3\r\n;"
             }
           }
         }

@@ -188,7 +188,8 @@
               "Draftable": false,
               "Versionable": false,
               "Stereotype": "Widget",
-              "Securable": false
+              "Securable": false,
+              "Description": "Renders a menu shape."
             },
             "FullTextAspectSettings": {
               "IncludeFullTextTemplate": false,
@@ -200,7 +201,11 @@
             {
               "PartName": "NavMenuWidget",
               "Name": "NavMenuWidget",
-              "Settings": {}
+              "Settings": {
+                "ContentTypePartSettings": {
+                  "Position": "0"
+                }
+              }
             }
           ]
         },
@@ -287,8 +292,38 @@
           ]
         },
         {
-          "Name": "LiquidWidget",
-          "DisplayName": "Liquid Widget",
+          "Name": "WindBlogThemeSettings",
+          "DisplayName": "Wind Blog Theme Settings",
+          "Settings": {
+            "ContentTypeSettings": {
+              "Creatable": true,
+              "Listable": true,
+              "Draftable": true,
+              "Versionable": true,
+              "Stereotype": "CustomSettings",
+              "Securable": false
+            },
+            "FullTextAspectSettings": {
+              "IncludeFullTextTemplate": false,
+              "IncludeBodyAspect": true,
+              "IncludeDisplayText": true
+            }
+          },
+          "ContentTypePartDefinitionRecords": [
+            {
+              "PartName": "WindBlogThemeSettings",
+              "Name": "WindBlogThemeSettings",
+              "Settings": {
+                "ContentTypePartSettings": {
+                  "Position": "0"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "Name": "RelatedPostsWidget",
+          "DisplayName": "RelatedPostsWidget",
           "Settings": {
             "ContentTypeSettings": {
               "Creatable": false,
@@ -306,13 +341,13 @@
           },
           "ContentTypePartDefinitionRecords": [
             {
-              "PartName": "LiquidWidget",
-              "Name": "LiquidWidget",
+              "PartName": "RelatedPostsWidget",
+              "Name": "RelatedPostsWidget",
               "Settings": {}
             },
             {
-              "PartName": "LiquidPart",
-              "Name": "LiquidPart",
+              "PartName": "TitlePart",
+              "Name": "TitlePart",
               "Settings": {
                 "ContentTypePartSettings": {
                   "Position": "0"
@@ -379,7 +414,23 @@
         {
           "Name": "ContentGridWidget",
           "Settings": {},
-          "ContentPartFieldDefinitionRecords": []
+          "ContentPartFieldDefinitionRecords": [
+            {
+              "FieldName": "NumericField",
+              "Name": "Limit",
+              "Settings": {
+                "ContentPartFieldSettings": {
+                  "DisplayName": "Limit"
+                },
+                "NumericFieldSettings": {
+                  "Required": true,
+                  "Scale": 0,
+                  "Minimum": 1.00,
+                  "DefaultValue": "5"
+                }
+              }
+            }
+          ]
         },
         {
           "Name": "NavMenuWidget",
@@ -390,7 +441,8 @@
               "Name": "Menu",
               "Settings": {
                 "ContentPartFieldSettings": {
-                  "DisplayName": "Menu"
+                  "DisplayName": "Menu",
+                  "Position": "0"
                 },
                 "ContentPickerFieldSettings": {
                   "Required": false,
@@ -425,8 +477,8 @@
                   "Position": "0"
                 },
                 "TextFieldSettings": {
-                  "Hint": "Enter the name of the query you want to load. You can find and define queries in \u0022Search \u003E Queries \u003E All queries\u0022.",
-                  "Required": true
+                  "Required": true,
+                  "Hint": "Enter the name of the query you want to load. You can find and define queries in \u0022Search \u003E Queries \u003E All queries\u0022."
                 }
               }
             }
@@ -453,6 +505,37 @@
                 "ContentPartFieldSettings": {
                   "DisplayName": "Lucide Icon",
                   "Position": "0"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "Name": "WindBlogThemeSettings",
+          "Settings": {},
+          "ContentPartFieldDefinitionRecords": [
+            {
+              "FieldName": "MediaField",
+              "Name": "SiteLogo",
+              "Settings": {
+                "ContentPartFieldSettings": {
+                  "DisplayName": "Site Logo",
+                  "Position": "0"
+                }
+              }
+            },
+            {
+              "FieldName": "TextField",
+              "Name": "PrimaryColor",
+              "Settings": {
+                "ContentPartFieldSettings": {
+                  "DisplayName": "PrimaryColor",
+                  "Editor": "Color",
+                  "Position": "1"
+                },
+                "TextFieldSettings": {
+                  "Required": false,
+                  "DefaultValue": "#1e3a8a"
                 }
               }
             }
