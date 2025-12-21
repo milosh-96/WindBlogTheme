@@ -18,15 +18,11 @@
     @{
         WindBlogThemeSettings themeSettings = (await _siteService.GetCustomSettingsAsync(ContentTypes.WindBlogThemeSettings)).As<WindBlogThemeSettings>();
         string primaryColorClass = ColorClasses.GetColorClass(themeSettings.PrimaryColor.Text) ?? ColorClasses.GetColorClass(ColorClasses.SupportedColors.First());
+        var logo = (themeSettings.SiteLogo != null && themeSettings.SiteLogo.Paths.Count() > 0) ? themeSettings.SiteLogo.Paths.First() : null;
     }
     <header class="@primaryColorClass text-white">
         <div class="max-w-7xl mx-auto p-4 flex justify-between items-center flex-col sm:flex-row">
-            <h1 class="text-2xl font-bold py-4">
-                @* <a href="/">@Site.SiteName</a> *@
-                <a href="~/">
-                    <img class="h-8" asset-src="logoipsum-414.png" />
-                </a>
-            </h1>
+            <shape Type="LogoShape"></shape>
             <div>
                 <div id="header-menu" class="hidden sm:flex">
                     <menu alias="alias:main-menu" cache-id="main-menu" cache-fixed-duration="00:05:00" cache-tag="alias:main-menu" />

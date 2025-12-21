@@ -52,6 +52,16 @@ footer .nav-widget > nav  a {
         @apply hover:text-[#ef4444] transition-colors;
 }
 
+footer .field-type-mediafield {
+    @apply flex justify-center md:justify-start;
+}
+footer .field-type-mediafield .name {
+    display: none;
+}
+footer .field-type-mediafield img {
+    @apply h-16;
+}
+
 
 .widget-container-title {
     @apply font-semibold mb-4;
