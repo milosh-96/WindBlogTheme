@@ -1,0 +1,22 @@
+@using OrchardCore.Settings
+@using WindyBlog.WindBlogTheme.Settings
+@inject ISiteService _siteService
+
+@{
+    WindBlogThemeSettings themeSettings = (await _siteService.GetCustomSettingsAsync(ContentTypes.WindBlogThemeSettings)).As<WindBlogThemeSettings>();
+    var logo = (themeSettings.SiteLogo != null && themeSettings.SiteLogo.Paths.Count() > 0) ? themeSettings.SiteLogo.Paths.First() : null;
+}
+
+<div class="text-2xl font-bold py-4">
+
+    @if (logo is not null && !string.IsNullOrEmpty(logo.Trim()))
+    {
+        <a href="~/">
+            <img class="h-12" src="@Orchard.AssetUrl(logo)" alt="@T["Logo of {0}", Site.SiteName]" />
+        </a>
+    }
+    else
+    {
+        <h2><a href="/">@Site.SiteName</a></h2>
+    }
+</div>
