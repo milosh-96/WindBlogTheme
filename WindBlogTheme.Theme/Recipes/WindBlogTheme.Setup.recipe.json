@@ -17,11 +17,11 @@
           "name": "Blog"
         },
         {
-          "executionid": "WindyBlog.WindBlogTheme",
+          "executionid": "WindBlogTheme.Theme",
           "name": "WindBlogTheme.Widgets"
         },
         {
-          "executionid": "WindyBlog.WindBlogTheme",
+          "executionid": "WindBlogTheme.Theme",
           "name": "WindBlogTheme.Queries"
         }
       ]
@@ -107,13 +107,13 @@
         // Themes
         "TheBlogTheme",
         "TheAdmin",
-        "WindyBlog.WindBlogTheme"
+        "WindBlogTheme.Theme"
       ]
     },
     {
       "name": "themes",
       "admin": "TheAdmin",
-      "site": "WindyBlog.WindBlogTheme"
+      "site": "WindBlogTheme.Theme"
     }
   ]
 }
