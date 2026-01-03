@@ -27,4 +27,8 @@
     <PackageReference Include="OrchardCore.Localization.Abstractions" Version="2.2.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\WindBlogTheme.Common\WindBlogTheme.Common.csproj" />
+  </ItemGroup>
+
 </Project>

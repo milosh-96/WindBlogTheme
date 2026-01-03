@@ -1,5 +1,5 @@
 ﻿@using OrchardCore.Settings
-@using WindyBlog.WindBlogTheme.Settings
+@using WindBlogTheme.Theme.Settings
 @inject ISiteService _siteService
 
 <!DOCTYPE html>
@@ -17,7 +17,7 @@
 <body class="min-h-screen w-full bg-white">
     @{
         WindBlogThemeSettings themeSettings = (await _siteService.GetCustomSettingsAsync(ContentTypes.WindBlogThemeSettings)).As<WindBlogThemeSettings>();
-        string primaryColorClass = ColorClasses.GetColorClass(themeSettings.PrimaryColor.Text) ?? ColorClasses.GetColorClass(ColorClasses.SupportedColors.First());
+        string primaryColorClass = ColorClasses.GetColorClass(themeSettings.ThemeColor.Value) ?? ColorClasses.GetColorClass(ColorClasses.SupportedColors.First());
         var logo = (themeSettings.SiteLogo != null && themeSettings.SiteLogo.Paths.Count() > 0) ? themeSettings.SiteLogo.Paths.First() : null;
     }
     <header class="@primaryColorClass text-white">

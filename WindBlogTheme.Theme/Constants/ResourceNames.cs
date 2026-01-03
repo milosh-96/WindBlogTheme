@@ -1,4 +1,4 @@
-﻿namespace WindyBlog.WindBlogTheme.Constants;
+﻿namespace WindBlogTheme.Theme.Constants;
 
 public static class ResourceNames
 {

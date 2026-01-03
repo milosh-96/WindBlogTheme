@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WindyBlog.WindBlogTheme.Constants;
+namespace WindBlogTheme.Theme.Constants;
 public static class ContentTypes
 {
     public const string WindBlogThemeSettings = nameof(WindBlogThemeSettings); 

@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.Options;
 using OrchardCore.ResourceManagement;
-using WindyBlog.WindBlogTheme.Constants;
+using WindBlogTheme.Theme.Constants;
 
-namespace WindyBlog.WindBlogTheme;
+namespace WindBlogTheme.Theme;
 
 public sealed class ResourceManagementOptionsConfiguration : IConfigureOptions<ResourceManagementOptions>
 {
@@ -13,7 +13,7 @@ public sealed class ResourceManagementOptionsConfiguration : IConfigureOptions<R
         _manifest = new ResourceManifest();
 
         _manifest.DefineStyle(ResourceNames.TailwindCss)
-            .SetUrl("~/WindyBlog.WindBlogTheme/css/app.css")
+            .SetUrl("~/WindBlogTheme.Theme/css/app.css")
             .SetVersion("3.4.10");
         _manifest.DefineScript(ResourceNames.LucideIcons)
             .SetCdn("https://unpkg.com/lucide@latest")

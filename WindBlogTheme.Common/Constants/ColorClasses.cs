@@ -1,12 +1,13 @@
-﻿namespace WindyBlog.WindBlogTheme.Constants;
+﻿namespace WindBlogTheme.Common.Constants;
 
 public static class ColorClasses
 {
     public static readonly HashSet<string> SupportedColors = [
         "#1e3a8a",
-        "#000000",
-        "#003366",
-        "#ff0000"
+        "#27ae60",
+        "#d35400",
+        "#8e44ad",
+        "#7f8c8d"
     ];
 
     public static string? GetColorClass(string? hexColor)
