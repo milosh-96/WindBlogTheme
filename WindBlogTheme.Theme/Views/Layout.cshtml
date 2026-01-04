@@ -1,6 +1,5 @@
 ﻿@using OrchardCore.Settings
 @using WindBlogTheme.Theme.Settings
-@inject ISiteService _siteService
 
 <!DOCTYPE html>
 <html lang="@Orchard.CultureName()" dir="@Orchard.CultureDir()">
@@ -17,7 +16,7 @@
 <body class="min-h-screen w-full bg-white">
     @{
         WindBlogThemeSettings themeSettings = (await _siteService.GetCustomSettingsAsync(ContentTypes.WindBlogThemeSettings)).As<WindBlogThemeSettings>();
-        string primaryColorClass = ColorClasses.GetColorClass(themeSettings.ThemeColor.Value) ?? ColorClasses.GetColorClass(ColorClasses.SupportedColors.First());
+        string primaryColorClass = await _siteService.GetPrimaryColorClassAsync();
         var logo = (themeSettings.SiteLogo != null && themeSettings.SiteLogo.Paths.Count() > 0) ? themeSettings.SiteLogo.Paths.First() : null;
     }
     <header class="@primaryColorClass text-white">
@@ -98,7 +97,7 @@
                     </div>
                 </div> *@
             </div>
-            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+            <div class="border-t border-gray-700 border-opacity-20 mt-8 pt-8 text-center text-gray-100">
                 <p>©@DateTime.Now.Year. @Site.SiteName - All rights reserved.</p>
             </div>
         </div>

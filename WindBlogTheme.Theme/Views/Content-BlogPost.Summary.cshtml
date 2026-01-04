@@ -9,6 +9,7 @@
         (string)selectedContentCategory.TaxonomyContentItemId, 
         (string)selectedContentCategory.TermContentItemIds[0]
     );
+    string primaryTextColorClass = await _siteService.GetPrimaryColorClassAsync("text");
 
 }
 <!-- Article 1 -->
@@ -23,7 +24,7 @@
             </span>
         </a>
         <a display-for="contentItem">
-            <h3 class="text-xl font-bold text-[#1e3a8a] mt-2 mb-3 hover:text-[#ef4444] transition-colors">
+            <h3 class="text-xl font-bold @primaryTextColorClass mt-2 mb-3 hover:text-[#ef4444] transition-colors">
                 @contentItem.DisplayText
             </h3>
         </a>

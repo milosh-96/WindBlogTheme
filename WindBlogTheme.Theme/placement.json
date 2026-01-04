@@ -2,8 +2,15 @@
   "TitlePart": [
     {
       "contentType": [ "Page" ],
-      "path": [ "/","/home" ],
+      "path": [ "/", "/home" ],
       "place": "-" // - is to hide
+    }
+  ],
+  "TextField": [
+    {
+      "contentType": [ "Category" ],
+      "alternate": [ "Category_Detail__Icon" ],
+      "place": "-"
     }
   ]
 }

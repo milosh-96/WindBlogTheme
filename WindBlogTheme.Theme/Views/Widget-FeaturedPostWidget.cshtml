@@ -1,3 +1,5 @@
+@using OrchardCore.Settings
+@using WindBlogTheme.Theme.Settings
 @inject IContentManager contentManager
 @{
     string selectedContentId = (string)Model.ContentItem.Content.FeaturedPostWidget.SelectedContent.ContentItemIds[0];
@@ -18,6 +20,8 @@
     var selectedContentTags = selectedContentType.Tags;
     var selectedContentCategory = selectedContentType.Category;
     var category = await Orchard.GetTaxonomyTermAsync((string)selectedContentCategory.TaxonomyContentItemId, (string)selectedContentCategory.TermContentItemIds[0]);
+    string primaryTextColorClass = await _siteService.GetPrimaryColorClassAsync("text");
+
 }
 <section class="bg-[#f5f0e6] py-16">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -34,7 +38,7 @@
                     </p>
                 </a>
                 <a display-for="@selectedContentItem">
-                    <h1 class="text-4xl md:text-5xl font-bold text-[#1e3a8a] mt-4 mb-6 hover:text-[#ef4444] transition-colors">
+                    <h1 class="text-4xl md:text-5xl font-bold @primaryTextColorClass mt-4 mb-6 hover:text-[#ef4444] transition-colors">
                         @selectedContentItem.DisplayText
                     </h1>
                 </a>

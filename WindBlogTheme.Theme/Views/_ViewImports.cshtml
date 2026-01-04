@@ -8,9 +8,11 @@
 @using OrchardCore.DisplayManagement
 @using OrchardCore.Menu.Models
 @using OrchardCore.Markdown
+@using OrchardCore.Settings
 @using WindBlogTheme.Theme.Constants
 @using Microsoft.Extensions.Localization
 @using WindBlogTheme.Common.Constants
+@using WindBlogTheme.Theme.Extensions
 
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @addTagHelper *, OrchardCore.DisplayManagement
@@ -21,3 +23,5 @@
 @addTagHelper *, OrchardCore.Menu
 @addTagHelper *, OrchardCore.Media
 @addTagHelper *, OrchardCore.Markdown
+
+@inject ISiteService _siteService

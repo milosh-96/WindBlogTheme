@@ -10,7 +10,7 @@ public static class ColorClasses
         "#7f8c8d"
     ];
 
-    public static string? GetColorClass(string? hexColor)
+    public static string? GetColorClass(string? hexColor, string prefix = "bg")
     {
         if (string.IsNullOrWhiteSpace(hexColor))
             return null;
@@ -18,6 +18,6 @@ public static class ColorClasses
         if (!SupportedColors.Contains(hexColor))
             return null;
 
-        return $"bg-{hexColor.TrimStart('#')}";
+        return $"{prefix}-{hexColor.TrimStart('#')}";
     }
 }

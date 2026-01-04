@@ -4,6 +4,7 @@
 @inject IContentItemDisplayManager displayManager
 @{
     ContentItem? contentItem = Model.ContentItem as ContentItem;
+    string primaryColorClass = await _siteService.GetPrimaryColorClassAsync();
 }
 
 @if (contentItem is not null)
@@ -16,7 +17,7 @@
     var countOfItems = countOfItemsQuery.First()["result"];
     /* todo: implement articles count and ordering */
 
-    <section class="bg-[#1e3a8a] text-white py-16">
+    <section class="@primaryColorClass text-white py-16">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h1 class="text-4xl md:text-5xl font-bold mb-4">@contentItem.DisplayText</h1>
             <p class="text-xl text-gray-300">Discover the latest articles and insights about technology</p>
