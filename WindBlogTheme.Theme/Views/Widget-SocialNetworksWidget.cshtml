@@ -1,16 +1,14 @@
+@{
+    var items = Model.ContentItem.Content.BagPart.ContentItems;
+}
 <div>
     <div class="flex space-x-4">
-        <a href="#" class="hover:text-[#ef4444] transition-colors">
-            <i data-lucide="twitter"></i>
-        </a>
-        <a href="#" class="hover:text-[#ef4444] transition-colors">
-            <i data-lucide="facebook"></i>
-        </a>
-        <a href="#" class="hover:text-[#ef4444] transition-colors">
-            <i data-lucide="instagram"></i>
-        </a>
-        <a href="#" class="hover:text-[#ef4444] transition-colors">
-            <i data-lucide="linkedin"></i>
-        </a>
+        @foreach (var item in items)
+        {
+            <a href="@item.SocialNetworkIcon.Link.Url" class="hover:text-[#ef4444] transition-colors">
+                <i data-lucide="@item.SocialNetworkIcon.LucideIcon.Text"></i>
+            </a>
+        }
     </div>
 </div>
+
