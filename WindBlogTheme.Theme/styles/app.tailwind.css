@@ -1,34 +1,73 @@
-﻿@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+.bg-000000, .bg-black {
+    @apply bg-[#000000];
+}
+
+.text-000000, .text-black {
+    @apply text-[#000000];
+}
+
+.bg-333333 {
+    @apply bg-[#333333];
+}
+
+.text-333333 {
+    @apply text-[#333333];
+}
+
+.bg-ffffff, .bg-white {
+    @apply bg-[#ffffff];
+}
+
+.text-ffffff, .text-white {
+    @apply text-[#ffffff];
+}
+
+.bg-fefefe {
+    @apply bg-[#fefefe];
+}
+
+.text-fefefe {
+    @apply text-[#fefefe];
+}
 
 .bg-1e3a8a {
     @apply bg-[#1e3a8a];
 }
+
 .text-1e3a8a {
     @apply text-[#1e3a8a];
 }
+
 .bg-27ae60 {
     @apply bg-[#27ae60];
 }
+
 .text-27ae60 {
     @apply text-[#27ae60];
 }
+
 .bg-d35400 {
     @apply bg-[#d35400];
 }
+
 .text-d35400 {
     @apply text-[#d35400];
 }
+
 .bg-8e44ad {
     @apply bg-[#8e44ad];
 }
+
 .text-8e44ad {
     @apply text-[#8e44ad];
 }
+
 .bg-7f8c8d {
     @apply bg-[#7f8c8d];
 }
+
 .text-7f8c8d {
     @apply text-[#7f8c8d];
 }
@@ -36,11 +75,11 @@
 
 
 blockquote {
-    @apply bg-[#f5f0e6] p-6 rounded-lg my-8 border-x-0 !important;
+    @apply bg-[#f5f0e6]! p-6! rounded-lg! my-8! border-x-0!;
 }
 
     blockquote p {
-        @apply text-lg italic text-gray-800 my-0 !important;
+        @apply text-lg! italic! text-gray-800! my-0!;
     }
 
         blockquote p:nth-child(1):after {
@@ -48,7 +87,7 @@ blockquote {
         }
 
         blockquote p:nth-child(2):before {
-            content: " — " !important;
+            content: " � " !important;
         }
 
         blockquote p:nth-child(2):after {
@@ -56,7 +95,7 @@ blockquote {
         }
 
         blockquote p:nth-child(2) {
-            @apply text-sm text-gray-600 mt-2 !important;
+            @apply text-sm! text-gray-600! mt-2!;
         }
 
 #header-menu > nav {
@@ -66,19 +105,22 @@ blockquote {
 footer .nav-widget > nav {
     @apply flex flex-col space-y-2 text-gray-300;
 }
-footer .nav-widget > nav  a {
+
+    footer .nav-widget > nav a {
         @apply hover:text-[#ef4444] transition-colors;
-}
+    }
 
 footer .field-type-mediafield {
     @apply flex justify-center md:justify-start;
 }
-footer .field-type-mediafield .name {
-    display: none;
-}
-footer .field-type-mediafield img {
-    @apply h-16;
-}
+
+    footer .field-type-mediafield .name {
+        display: none;
+    }
+
+    footer .field-type-mediafield img {
+        @apply h-16;
+    }
 
 
 .widget-container-title {

@@ -31,4 +31,8 @@
     <ProjectReference Include="..\WindBlogTheme.Common\WindBlogTheme.Common.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\css\" />
+  </ItemGroup>
+
 </Project>
