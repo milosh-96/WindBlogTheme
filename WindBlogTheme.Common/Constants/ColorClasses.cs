@@ -7,7 +7,9 @@ public static class ColorClasses
         "#27ae60",
         "#d35400",
         "#8e44ad",
-        "#7f8c8d"
+        "#7f8c8d",
+        "#333333",
+        "#fefefe"
     ];
 
     public static string? GetColorClass(string? hexColor, string prefix = "bg")

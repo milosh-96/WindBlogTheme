@@ -1,13 +1,13 @@
 @model EditThemeColorFieldViewModel
+@using OrchardCore.ContentManagement.Metadata.Models
 @using WindBlogTheme.Common.Constants
 @using WindBlogTheme.Common.ViewModels
 
-<h3>@T["Available colors:"]</h3>
+<label asp-for="Value">@Model.PartFieldDefinition.DisplayName()</label>
 <div class="@Orchard.GetFieldWrapperClasses(Model.PartFieldDefinition)" id="@Html.IdFor(m => m.Value)_FieldWrapper" style="display:flex;gap:8px">
     @foreach (var color in ColorClasses.SupportedColors)
     {
-
-        <div style="width:64px;height:64px;background:@color">
+        <div style="width:64px;height:64px;background:@color;border:1px solid #00000020;border-radius:4px;display:flex;align-content:center;justify-content:center">
             <input asp-for="Value" type="radio" value="@color">
         </div>
     }
