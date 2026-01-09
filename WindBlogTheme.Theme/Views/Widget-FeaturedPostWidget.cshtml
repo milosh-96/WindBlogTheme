@@ -27,16 +27,20 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
-                <a display-for="@category">
-                    <p class="text-[#ef4444] text-sm font-semibold uppercase tracking-wide hover:underline">
-                        @category.DisplayText <i data-lucide="dot" class="inline-flex"></i>
-                        @foreach(var termId in selectedContentTags.TermContentItemIds)
+                <div class="flex">
+                    <a display-for="@category">
+                        <p class="text-[#ef4444] text-sm font-semibold uppercase tracking-wide hover:underline">
+                            @category.DisplayText <i data-lucide="dot" class="inline-flex"></i>
+                        </p>
+                    </a>
+                    <div class="text-[#ef4444] text-sm font-semibold uppercase tracking-wide hover:underline">
+                        @foreach (var termId in selectedContentTags.TermContentItemIds)
                         {
                             var item = await Orchard.GetTaxonomyTermAsync((string)selectedContentTags.TaxonomyContentItemId, (string)termId);
-                            <span><a display-for="@item">@item.DisplayText</a></span>
+                            <a display-for="@item"><span>@item.DisplayText</span></a>
                         }
-                    </p>
-                </a>
+                    </div>
+                </div>
                 <a display-for="@selectedContentItem">
                     <h1 class="text-4xl md:text-5xl font-bold @primaryTextColorClass mt-4 mb-6 hover:text-[#ef4444] transition-colors">
                         @selectedContentItem.DisplayText
