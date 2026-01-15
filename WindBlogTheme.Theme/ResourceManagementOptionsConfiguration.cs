@@ -14,7 +14,7 @@ public sealed class ResourceManagementOptionsConfiguration : IConfigureOptions<R
 
         _manifest.DefineStyle(ResourceNames.TailwindCss)
             .SetUrl("~/WindBlogTheme.Theme/css/app.css")
-            .SetVersion("3.4.10");
+            .SetVersion("4.1.18");
         _manifest.DefineScript(ResourceNames.LucideIcons)
             .SetCdn("https://unpkg.com/lucide@latest")
             .SetVersion("0.552.0");
