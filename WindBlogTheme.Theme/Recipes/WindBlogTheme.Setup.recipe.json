@@ -1,100 +1,1381 @@
 {
   "name": "WindBlogTheme.Setup",
   "displayName": "Wind Blog Theme Setup recipe",
-  "description": "Content types (widgets) for this theme.",
+  "description": "Wind Blog Theme recipe (based on the blog theme recipe)",
   "author": "M96",
   "website": "https://m96dev.com",
   "version": "1.0.0",
   "issetuprecipe": true,
-  "categories": [],
-  "tags": [],
+  "categories": [ "default" ],
+  "tags": [ "blog" ],
+
+  // The variables are evaluated the first time they are accessed, and reused across steps
+  "variables": {
+    "adminUrlPrefix": "[js: configuration('OrchardCore_Admin:AdminUrlPrefix', 'Admin')]",
+    "homePageContentItemId": "[js:uuid()]",
+    "blogContentItemId": "[js:uuid()]",
+    "blogPostContentItemId": "[js:uuid()]",
+    "aboutArticleContentItemId": "[js:uuid()]",
+    "privacyPageContentItemId": "[js:uuid()]",
+    "contactPageContentItemId": "[js:uuid()]",
+    "menuContentItemId": "[js:uuid()]",
+    "footerTopCategoriesMenuContentItemId": "[js:uuid()]",
+    "footerLinksMenuContentItemId": "[js:uuid()]",
+    "tagsContentItemId": "[js:uuid()]",
+    "tagContentItemId": "[js:uuid()]",
+    "earthTagContentItemId": "[js:uuid()]",
+    "explorationTagContentItemId": "[js:uuid()]",
+    "spaceTagContentItemId": "[js:uuid()]",
+    "categoriesContentItemId": "[js:uuid()]",
+    "categoryTravelContentItemId": "[js:uuid()]"
+    // "now": "[js: new Date().toISOString()]"
+  },
+
   "steps": [
     {
-      "name": "recipes",
-      "Values": [
+      "name": "feature",
+      "enable": [
+        // SaaS
+        "OrchardCore.HomeRoute",
+        "OrchardCore.Admin",
+        "OrchardCore.Diagnostics",
+        "OrchardCore.DynamicCache",
+        "OrchardCore.Features",
+        "OrchardCore.Navigation",
+        "OrchardCore.Recipes",
+        "OrchardCore.Resources",
+        "OrchardCore.Roles",
+        "OrchardCore.Security",
+        "OrchardCore.Settings",
+        "OrchardCore.Themes",
+        "OrchardCore.Users",
+
+        // Content Management
+        "OrchardCore.Alias",
+        "OrchardCore.AdminMenu",
+        "OrchardCore.Autoroute",
+        "OrchardCore.Html",
+        "OrchardCore.ContentFields",
+        "OrchardCore.ContentPreview",
+        "OrchardCore.Contents",
+        "OrchardCore.ContentTypes",
+        "OrchardCore.CustomSettings",
+        "OrchardCore.Deployment",
+        "OrchardCore.Deployment.Remote",
+        "OrchardCore.Feeds",
+        "OrchardCore.Forms",
+        "OrchardCore.Flows",
+        "OrchardCore.Indexing",
+        "OrchardCore.Layers",
+        "OrchardCore.Lists",
+        "OrchardCore.Markdown",
+        "OrchardCore.Media",
+        "OrchardCore.Menu",
+        "OrchardCore.Placements",
+        "OrchardCore.Queries",
+        "OrchardCore.Queries.Sql",
+        "OrchardCore.Shortcodes.Templates",
+        "OrchardCore.Rules",
+        "OrchardCore.Taxonomies",
+        "OrchardCore.Title",
+        "OrchardCore.Templates",
+        "OrchardCore.Widgets",
+
+        // Themes
+        "WindBlogTheme.Theme",
+        "TheAdmin",
+        "SafeMode"
+      ]
+    },
+    {
+      "name": "themes",
+      "admin": "TheAdmin",
+      "site": "WindBlogTheme.Theme"
+    },
+    {
+      "name": "Roles",
+      "Roles": [
         {
-          "executionid": "TheBlogTheme",
-          "name": "Blog"
+          "Name": "Moderator",
+          "Description": "Grants users the ability to moderate content.",
+          "Permissions": []
         },
         {
-          "executionid": "WindBlogTheme.Theme",
-          "name": "WindBlogTheme.Widgets"
+          "Name": "Editor",
+          "Description": "Grants users the ability to edit existing content.",
+          "Permissions": []
         },
         {
-          "executionid": "WindBlogTheme.Theme",
-          "name": "WindBlogTheme.Queries"
+          "Name": "Author",
+          "Description": "Grants users the ability to create content.",
+          "Permissions": []
+        },
+        {
+          "Name": "Contributor",
+          "Description": "Grants users the ability to contribute content.",
+          "Permissions": []
         }
       ]
     },
     {
-      "name": "deployment",
-      "Plans": [
+      "name": "settings",
+      "HomeRoute": {
+        "Action": "Display",
+        "Controller": "Item",
+        "Area": "OrchardCore.Contents",
+        "ContentItemId": "[js: variables('blogContentItemId')]"
+      },
+      "LayerSettings": {
+        "Zones": [ "Content", "Footer", "BlogPostArticleBelowContent" ]
+      }
+    },
+    {
+      "name": "ContentDefinition",
+      "ContentTypes": [
         {
-          "Name": "Main",
-          "Steps": [
+          "Name": "Article",
+          "DisplayName": "Article",
+          "Hidden": false,
+          "Settings": {
+            "ContentTypeSettings": {
+              "Creatable": true,
+              "Draftable": true,
+              "Versionable": true,
+              "Listable": true
+            }
+          },
+          "ContentTypePartDefinitionRecords": [
             {
-              "Type": "ContentDefinitionDeploymentStep",
-              "Step": {
-                "$type": "OrchardCore.ContentTypes.Deployment.ContentDefinitionDeploymentStep, OrchardCore.ContentTypes",
-                "IncludeAll": false,
-                "ContentTypes": [
-                  "AnnouncementWidget",
-                  "ContentGridWidget",
-                  "FeaturedPostWidget",
-                  "NavMenuWidget",
-                  "NewsletterWidget",
-                  "RelatedPostsWidget",
-                  "SocialNetworkIcon",
-                  "SocialNetworksWidget",
-                  "WindBlogThemeSettings"
-                ],
-                "ContentParts": [
-                  "AnnouncementWidget",
-                  "ContentGridWidget",
-                  "FeaturedPostWidget",
-                  "NavMenuWidget",
-                  "NewsletterWidget",
-                  "RelatedPostsWidget",
-                  "SocialNetworkIcon",
-                  "SocialNetworksWidget",
-                  "WindBlogThemeSettings",
-                  "QueryPart"
-                ],
-                "Id": "c21fb438fe814c5e8928e51d5fe927d3",
-                "Name": "ContentDefinition"
+              "PartName": "Article",
+              "Name": "Article",
+              "Settings": {
+                "ContentTypePartSettings": {
+                  "Position": "3"
+                }
               }
             },
             {
-              "Type": "AllQueriesDeploymentStep",
-              "Step": {
-                "$type": "OrchardCore.Queries.Deployment.AllQueriesDeploymentStep, OrchardCore.Queries",
-                "Id": "25a58412890e416ebd8fc514de950464",
-                "Name": "AllQueries"
+              "PartName": "AutoroutePart",
+              "Name": "AutoroutePart",
+              "Settings": {
+                "AutoroutePartSettings": {
+                  "AllowCustomPath": true,
+                  "Pattern": "{{ Model.ContentItem | display_text | slugify }}",
+                  "ShowHomepageOption": true
+                },
+                "ContentTypePartSettings": {
+                  "Position": "1"
+                }
               }
             },
             {
-              "Type": "RecipeFileDeploymentStep",
-              "Step": {
-                "$type": "OrchardCore.Deployment.Steps.RecipeFileDeploymentStep, OrchardCore.Deployment",
-                "RecipeName": "Main",
-                "DisplayName": "Test",
-                "Author": "MIlos",
-                "Version": "1",
-                "IsSetupRecipe": true,
-                "Id": "f9482f8c18bc413eb6a80c3c67a303fe",
-                "Name": "RecipeFileDeploymentStep"
+              "PartName": "HtmlBodyPart",
+              "Name": "HtmlBodyPart",
+              "Settings": {
+                "ContentTypePartSettings": {
+                  "Editor": "Wysiwyg",
+                  "Position": "2"
+                }
               }
             },
             {
-              "Type": "DeploymentPlanDeploymentStep",
-              "Step": {
-                "$type": "OrchardCore.Deployment.Deployment.DeploymentPlanDeploymentStep, OrchardCore.Deployment",
-                "IncludeAll": false,
-                "DeploymentPlanNames": [
-                  "Main"
-                ],
-                "Id": "d5a45ec71ade423a89f6549122c52372",
-                "Name": "DeploymentPlan"
+              "PartName": "TitlePart",
+              "Name": "TitlePart",
+              "Settings": {
+                "ContentTypePartSettings": {
+                  "Position": "0"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "Name": "BlogPost",
+          "DisplayName": "Blog Post",
+          "Hidden": false,
+          "Settings": {
+            "ContentTypeSettings": {
+              "Draftable": true,
+              "Versionable": true
+            }
+          },
+          "ContentTypePartDefinitionRecords": [
+            {
+              "PartName": "TitlePart",
+              "Name": "TitlePart",
+              "Settings": {
+                "ContentTypePartSettings": {
+                  "Position": "0"
+                }
+              }
+            },
+            {
+              "PartName": "AutoroutePart",
+              "Name": "AutoroutePart",
+              "Settings": {
+                "ContentTypePartSettings": {
+                  "Position": "1"
+                },
+                "AutoroutePartSettings": {
+                  "AllowCustomPath": true,
+                  "Pattern": "{{ Model.ContentItem | container | display_text | slugify }}/{{ Model.ContentItem | display_text | slugify }}",
+                  "ShowHomepageOption": false
+                }
+              }
+            },
+            {
+              "PartName": "BlogPost",
+              "Name": "BlogPost",
+              "Settings": {
+                "ContentTypePartSettings": {
+                  "Position": "3"
+                }
+              }
+            },
+            {
+              "PartName": "MarkdownBodyPart",
+              "Name": "MarkdownBodyPart",
+              "Settings": {
+                "ContentTypePartSettings": {
+                  "Editor": "Wysiwyg",
+                  "Position": "2"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "Name": "Blog",
+          "DisplayName": "Blog",
+          "Hidden": false,
+          "Settings": {
+            "ContentTypeSettings": {
+              "Creatable": true,
+              "Draftable": true,
+              "Versionable": true,
+              "Listable": true,
+              "Securable": true
+            }
+          },
+          "ContentTypePartDefinitionRecords": [
+            {
+              "PartName": "TitlePart",
+              "Name": "TitlePart",
+              "Settings": {
+                "ContentTypePartSettings": {
+                  "Position": "0"
+                }
+              }
+            },
+            {
+              "PartName": "AutoroutePart",
+              "Name": "AutoroutePart",
+              "Settings": {
+                "ContentTypePartSettings": {
+                  "Position": "1"
+                },
+                "LuceneContentIndexSettings": {
+                  "Included": false,
+                  "Stored": false,
+                  "Keyword": false
+                },
+                "AutoroutePartSettings": {
+                  "AllowCustomPath": true,
+                  "Pattern": "{{ Model.ContentItem | display_text | slugify }}",
+                  "ShowHomepageOption": true
+                }
+              }
+            },
+            {
+              "PartName": "Blog",
+              "Name": "Blog",
+              "Settings": {
+                "ContentTypePartSettings": {
+                  "Position": "3"
+                }
+              }
+            },
+            {
+              "PartName": "HtmlBodyPart",
+              "Name": "HtmlBodyPart",
+              "Settings": {
+                "ContentTypePartSettings": {
+                  "Position": "2"
+                }
+              }
+            },
+            {
+              "PartName": "ListPart",
+              "Name": "ListPart",
+              "Settings": {
+                "ContentTypePartSettings": {
+                  "Position": "4"
+                },
+                "ListPartSettings": {
+                  "PageSize": 10,
+                  "ContainedContentTypes": [
+                    "BlogPost"
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "Name": "Container",
+          "DisplayName": "Container",
+          "Settings": {
+            "ContentTypeSettings": {
+              "Draftable": true,
+              "Versionable": true,
+              "Securable": true,
+              "Stereotype": "Widget"
+            }
+          },
+          "ContentTypePartDefinitionRecords": [
+            {
+              "PartName": "Container",
+              "Name": "Container",
+              "Settings": {
+                "ContentTypePartSettings": {
+                  "Position": "0"
+                }
+              }
+            },
+            {
+              "PartName": "FlowPart",
+              "Name": "FlowPart",
+              "Settings": {
+                "ContentTypePartSettings": {
+                  "Position": "1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "Name": "Blockquote",
+          "DisplayName": "Blockquote",
+          "Settings": {
+            "ContentTypeSettings": {
+              "Draftable": true,
+              "Versionable": true,
+              "Securable": true,
+              "Stereotype": "Widget"
+            }
+          },
+          "ContentTypePartDefinitionRecords": [
+            {
+              "PartName": "Blockquote",
+              "Name": "Blockquote",
+              "Settings": {
+                "ContentTypePartSettings": {
+                  "Position": "0"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "Name": "Image",
+          "DisplayName": "Image",
+          "Settings": {
+            "ContentTypeSettings": {
+              "Draftable": true,
+              "Versionable": true,
+              "Securable": true,
+              "Stereotype": "Widget"
+            }
+          },
+          "ContentTypePartDefinitionRecords": [
+            {
+              "PartName": "Image",
+              "Name": "Image",
+              "Settings": {
+                "ContentTypePartSettings": {
+                  "Position": "0"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "Name": "Paragraph",
+          "DisplayName": "Paragraph",
+          "Settings": {
+            "ContentTypeSettings": {
+              "Draftable": true,
+              "Versionable": true,
+              "Securable": true,
+              "Stereotype": "Widget"
+            }
+          },
+          "ContentTypePartDefinitionRecords": [
+            {
+              "PartName": "Paragraph",
+              "Name": "Paragraph",
+              "Settings": {
+                "ContentTypePartSettings": {
+                  "Position": "0"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "Name": "RawHtml",
+          "DisplayName": "Raw Html",
+          "Settings": {
+            "ContentTypeSettings": {
+              "Draftable": true,
+              "Versionable": true,
+              "Securable": true,
+              "Stereotype": "Widget"
+            }
+          },
+          "ContentTypePartDefinitionRecords": [
+            {
+              "PartName": "RawHtml",
+              "Name": "RawHtml",
+              "Settings": {
+                "ContentTypePartSettings": {
+                  "Position": "0"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "Name": "Page",
+          "DisplayName": "Page",
+          "Settings": {
+            "ContentTypeSettings": {
+              "Creatable": true,
+              "Draftable": true,
+              "Versionable": true,
+              "Listable": true,
+              "Securable": true
+            }
+          },
+          "ContentTypePartDefinitionRecords": [
+            {
+              "PartName": "Page",
+              "Name": "Page",
+              "Settings": {
+                "ContentTypePartSettings": {
+                  "Position": "3"
+                }
+              }
+            },
+            {
+              "PartName": "AutoroutePart",
+              "Name": "AutoroutePart",
+              "Settings": {
+                "ContentTypePartSettings": {
+                  "Position": "1"
+                },
+                "AutoroutePartSettings": {
+                  "AllowCustomPath": true,
+                  "Pattern": "{{ Model.ContentItem | display_text | slugify }}",
+                  "ShowHomepageOption": true
+                }
+              }
+            },
+            {
+              "PartName": "FlowPart",
+              "Name": "FlowPart",
+              "Settings": {
+                "ContentTypePartSettings": {
+                  "Position": "2"
+                }
+              }
+            },
+            {
+              "PartName": "TitlePart",
+              "Name": "TitlePart",
+              "Settings": {
+                "ContentTypePartSettings": {
+                  "Position": "0"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "Name": "Tag",
+          "DisplayName": "Tag",
+          "Settings": {
+            "ContentTypeSettings": {},
+            "FullTextAspectSettings": {}
+          },
+          "ContentTypePartDefinitionRecords": [
+            {
+              "PartName": "Tag",
+              "Name": "Tag",
+              "Settings": {
+                "ContentTypePartSettings": {
+                  "Position": "1"
+                }
+              }
+            },
+            {
+              "PartName": "TitlePart",
+              "Name": "TitlePart",
+              "Settings": {
+                "ContentTypePartSettings": {
+                  "Position": "0"
+                }
+              }
+            },
+            {
+              "PartName": "AutoroutePart",
+              "Name": "AutoroutePart",
+              "Settings": {
+                "ContentTypePartSettings": {
+                  "Position": "2"
+                },
+                "AutoroutePartSettings": {
+                  "AllowCustomPath": true,
+                  "Pattern": "{{ Model.ContentItem | display_text | slugify }}",
+                  "ManageContainedItemRoutes": true
+                }
+              }
+            }
+          ]
+        },
+        {
+          "Name": "Category",
+          "DisplayName": "Category",
+          "Settings": {
+            "ContentTypeSettings": {},
+            "FullTextAspectSettings": {}
+          },
+          "ContentTypePartDefinitionRecords": [
+            {
+              "PartName": "Category",
+              "Name": "Category",
+              "Settings": {
+                "ContentTypePartSettings": {
+                  "Position": "1"
+                }
+              }
+            },
+            {
+              "PartName": "TitlePart",
+              "Name": "TitlePart",
+              "Settings": {
+                "ContentTypePartSettings": {
+                  "Position": "0"
+                }
+              }
+            },
+            {
+              "PartName": "AutoroutePart",
+              "Name": "AutoroutePart",
+              "Settings": {
+                "ContentTypePartSettings": {
+                  "Position": "2"
+                },
+                "AutoroutePartSettings": {
+                  "AllowCustomPath": true,
+                  "Pattern": "{{ Model.ContentItem | display_text | slugify }}",
+                  "ManageContainedItemRoutes": true
+                }
+              }
+            }
+          ]
+        },
+        {
+          "Name": "WindBlogThemeSettings",
+          "DisplayName": "Wind Blog Theme Settings",
+          "Settings": {
+            "ContentTypeSettings": {
+              "Creatable": true,
+              "Listable": true,
+              "Draftable": true,
+              "Versionable": true,
+              "Stereotype": "CustomSettings",
+              "Securable": false
+            },
+            "FullTextAspectSettings": {
+              "IncludeFullTextTemplate": false,
+              "IncludeBodyAspect": true,
+              "IncludeDisplayText": true
+            }
+          },
+          "ContentTypePartDefinitionRecords": [
+            {
+              "PartName": "WindBlogThemeSettings",
+              "Name": "WindBlogThemeSettings",
+              "Settings": {
+                "ContentTypePartSettings": {
+                  "Position": "0"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "Name": "AnnouncementWidget",
+          "DisplayName": "AnnouncementWidget",
+          "Settings": {
+            "ContentTypeSettings": {
+              "Creatable": false,
+              "Listable": false,
+              "Draftable": false,
+              "Versionable": false,
+              "Stereotype": "Widget",
+              "Securable": false
+            },
+            "FullTextAspectSettings": {
+              "IncludeFullTextTemplate": false,
+              "IncludeBodyAspect": true,
+              "IncludeDisplayText": true
+            }
+          },
+          "ContentTypePartDefinitionRecords": [
+            {
+              "PartName": "AnnouncementWidget",
+              "Name": "AnnouncementWidget",
+              "Settings": {}
+            },
+            {
+              "PartName": "HtmlBodyPart",
+              "Name": "HtmlBodyPart",
+              "Settings": {
+                "ContentTypePartSettings": {
+                  "Position": "1"
+                }
+              }
+            },
+            {
+              "PartName": "TitlePart",
+              "Name": "TitlePart",
+              "Settings": {
+                "ContentTypePartSettings": {
+                  "Position": "0"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "Name": "FeaturedPostWidget",
+          "DisplayName": "FeaturedPostWidget",
+          "Settings": {
+            "ContentTypeSettings": {
+              "Creatable": false,
+              "Listable": false,
+              "Draftable": false,
+              "Versionable": false,
+              "Stereotype": "Widget",
+              "Securable": false
+            },
+            "FullTextAspectSettings": {
+              "IncludeFullTextTemplate": false,
+              "IncludeBodyAspect": true,
+              "IncludeDisplayText": true
+            }
+          },
+          "ContentTypePartDefinitionRecords": [
+            {
+              "PartName": "FeaturedPostWidget",
+              "Name": "FeaturedPostWidget",
+              "Settings": {}
+            }
+          ]
+        },
+        {
+          "Name": "NewsletterWidget",
+          "DisplayName": "NewsletterWidget",
+          "Settings": {
+            "ContentTypeSettings": {
+              "Creatable": false,
+              "Listable": false,
+              "Draftable": false,
+              "Versionable": false,
+              "Stereotype": "Widget",
+              "Securable": false
+            },
+            "FullTextAspectSettings": {
+              "IncludeFullTextTemplate": false,
+              "IncludeBodyAspect": true,
+              "IncludeDisplayText": true
+            }
+          },
+          "ContentTypePartDefinitionRecords": [
+            {
+              "PartName": "NewsletterWidget",
+              "Name": "NewsletterWidget",
+              "Settings": {
+                "ContentTypePartSettings": {
+                  "Position": "1"
+                }
+              }
+            },
+            {
+              "PartName": "HtmlBodyPart",
+              "Name": "HtmlBodyPart",
+              "Settings": {
+                "ContentTypePartSettings": {
+                  "Position": "2"
+                }
+              }
+            },
+            {
+              "PartName": "TitlePart",
+              "Name": "TitlePart",
+              "Settings": {
+                "ContentTypePartSettings": {
+                  "Position": "0"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "Name": "ContentGridWidget",
+          "DisplayName": "ContentGridWidget",
+          "Settings": {
+            "ContentTypeSettings": {
+              "Creatable": false,
+              "Listable": false,
+              "Draftable": false,
+              "Versionable": false,
+              "Stereotype": "Widget",
+              "Securable": false
+            },
+            "FullTextAspectSettings": {
+              "IncludeFullTextTemplate": false,
+              "IncludeBodyAspect": true,
+              "IncludeDisplayText": true
+            }
+          },
+          "ContentTypePartDefinitionRecords": [
+            {
+              "PartName": "ContentGridWidget",
+              "Name": "ContentGridWidget",
+              "Settings": {
+                "ContentTypePartSettings": {
+                  "Position": "1"
+                }
+              }
+            },
+            {
+              "PartName": "TitlePart",
+              "Name": "TitlePart",
+              "Settings": {
+                "ContentTypePartSettings": {
+                  "Position": "0"
+                }
+              }
+            },
+            {
+              "PartName": "QueryPart",
+              "Name": "QueryPart",
+              "Settings": {
+                "ContentTypePartSettings": {
+                  "Position": "2"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "Name": "NavMenuWidget",
+          "DisplayName": "NavMenuWidget",
+          "Settings": {
+            "ContentTypeSettings": {
+              "Creatable": false,
+              "Listable": false,
+              "Draftable": false,
+              "Versionable": false,
+              "Stereotype": "Widget",
+              "Securable": false,
+              "Description": "Renders a menu shape."
+            },
+            "FullTextAspectSettings": {
+              "IncludeFullTextTemplate": false,
+              "IncludeBodyAspect": true,
+              "IncludeDisplayText": true
+            }
+          },
+          "ContentTypePartDefinitionRecords": [
+            {
+              "PartName": "NavMenuWidget",
+              "Name": "NavMenuWidget",
+              "Settings": {
+                "ContentTypePartSettings": {
+                  "Position": "0"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "Name": "SocialNetworksWidget",
+          "DisplayName": "SocialNetworksWidget",
+          "Settings": {
+            "ContentTypeSettings": {
+              "Creatable": false,
+              "Listable": false,
+              "Draftable": false,
+              "Versionable": false,
+              "Stereotype": "Widget",
+              "Securable": false
+            },
+            "FullTextAspectSettings": {
+              "IncludeFullTextTemplate": false,
+              "IncludeBodyAspect": true,
+              "IncludeDisplayText": true
+            }
+          },
+          "ContentTypePartDefinitionRecords": [
+            {
+              "PartName": "SocialNetworksWidget",
+              "Name": "SocialNetworksWidget",
+              "Settings": {}
+            },
+            {
+              "PartName": "BagPart",
+              "Name": "BagPart",
+              "Settings": {
+                "ContentTypePartSettings": {
+                  "DisplayName": "Bag",
+                  "Description": "Provides a collection behavior for your content item where you can place other content items.",
+                  "Position": "0"
+                },
+                "BagPartSettings": {
+                  "ContainedContentTypes": [
+                    "SocialNetworkIcon"
+                  ],
+                  "ContainedStereotypes": [],
+                  "DisplayType": "Detail"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "Name": "SocialNetworkIcon",
+          "DisplayName": "SocialNetworkIcon",
+          "Settings": {
+            "ContentTypeSettings": {
+              "Creatable": false,
+              "Listable": false,
+              "Draftable": false,
+              "Versionable": false,
+              "Securable": false
+            },
+            "FullTextAspectSettings": {
+              "IncludeFullTextTemplate": false,
+              "IncludeBodyAspect": true,
+              "IncludeDisplayText": true
+            }
+          },
+          "ContentTypePartDefinitionRecords": [
+            {
+              "PartName": "SocialNetworkIcon",
+              "Name": "SocialNetworkIcon",
+              "Settings": {
+                "ContentTypePartSettings": {
+                  "Position": "1"
+                }
+              }
+            },
+            {
+              "PartName": "TitlePart",
+              "Name": "TitlePart",
+              "Settings": {
+                "ContentTypePartSettings": {
+                  "Position": "0"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "Name": "RelatedPostsWidget",
+          "DisplayName": "RelatedPostsWidget",
+          "Settings": {
+            "ContentTypeSettings": {
+              "Creatable": false,
+              "Listable": false,
+              "Draftable": false,
+              "Versionable": false,
+              "Stereotype": "Widget",
+              "Securable": false
+            },
+            "FullTextAspectSettings": {
+              "IncludeFullTextTemplate": false,
+              "IncludeBodyAspect": true,
+              "IncludeDisplayText": true
+            }
+          },
+          "ContentTypePartDefinitionRecords": [
+            {
+              "PartName": "RelatedPostsWidget",
+              "Name": "RelatedPostsWidget",
+              "Settings": {}
+            },
+            {
+              "PartName": "TitlePart",
+              "Name": "TitlePart",
+              "Settings": {
+                "ContentTypePartSettings": {
+                  "Position": "0"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "Name": "LogoWidget",
+          "DisplayName": "Logo Widget",
+          "Settings": {
+            "ContentTypeSettings": {
+              "Creatable": false,
+              "Listable": false,
+              "Draftable": false,
+              "Versionable": false,
+              "Stereotype": "Widget",
+              "Securable": false
+            },
+            "FullTextAspectSettings": {
+              "IncludeFullTextTemplate": false,
+              "IncludeBodyAspect": true,
+              "IncludeDisplayText": true
+            }
+          },
+          "ContentTypePartDefinitionRecords": [
+            {
+              "PartName": "LogoWidget",
+              "Name": "LogoWidget",
+              "Settings": {}
+            }
+          ]
+        }
+      ],
+      "ContentParts": [
+        {
+          "Name": "Blog",
+          "Settings": {},
+          "ContentPartFieldDefinitionRecords": [
+            {
+              "FieldName": "MediaField",
+              "Name": "Image",
+              "Settings": {
+                "ContentPartFieldSettings": {
+                  "DisplayName": "Banner Image",
+                  "Position": "0"
+                },
+                "LuceneContentIndexSettings": {
+                  "Included": false,
+                  "Stored": false,
+                  "Keyword": false
+                },
+                "MediaFieldSettings": {
+                  "Multiple": false,
+                  "AllowAnchors": true
+                }
+              }
+            }
+          ]
+        },
+        {
+          "Name": "BlogPost",
+          "Settings": {},
+          "ContentPartFieldDefinitionRecords": [
+            {
+              "FieldName": "TextField",
+              "Name": "Subtitle",
+              "Settings": {
+                "ContentPartFieldSettings": {
+                  "DisplayName": "Subtitle",
+                  "Position": "0"
+                }
+              }
+            },
+            {
+              "FieldName": "MediaField",
+              "Name": "Image",
+              "Settings": {
+                "ContentPartFieldSettings": {
+                  "DisplayName": "Banner Image",
+                  "Position": "1"
+                },
+                "LuceneContentIndexSettings": {
+                  "Included": false,
+                  "Stored": false,
+                  "Keyword": false
+                },
+                "MediaFieldSettings": {
+                  "Multiple": false,
+                  "AllowAnchors": true
+                }
+              }
+            },
+            {
+              "FieldName": "TaxonomyField",
+              "Name": "Tags",
+              "Settings": {
+                "ContentPartFieldSettings": {
+                  "DisplayName": "Tags",
+                  "Editor": "Tags",
+                  "DisplayMode": "Tags",
+                  "Position": "2"
+                },
+                "TaxonomyFieldSettings": {
+                  "TaxonomyContentItemId": "[js: variables('tagsContentItemId')]"
+                },
+                "TaxonomyFieldTagsEditorSettings": {}
+              }
+            },
+            {
+              "FieldName": "TaxonomyField",
+              "Name": "Category",
+              "Settings": {
+                "ContentPartFieldSettings": {
+                  "DisplayName": "Category",
+                  "Position": "3"
+                },
+                "TaxonomyFieldSettings": {
+                  "TaxonomyContentItemId": "[js: variables('categoriesContentItemId')]",
+                  "Unique": true,
+                  "LeavesOnly": true
+                }
+              }
+            }
+          ]
+        },
+        {
+          "Name": "Article",
+          "Settings": {},
+          "ContentPartFieldDefinitionRecords": [
+            {
+              "FieldName": "TextField",
+              "Name": "Subtitle",
+              "Settings": {
+                "ContentPartFieldSettings": {
+                  "DisplayName": "Subtitle",
+                  "Position": "0"
+                }
+              }
+            },
+            {
+              "FieldName": "MediaField",
+              "Name": "Image",
+              "Settings": {
+                "ContentPartFieldSettings": {
+                  "DisplayName": "Banner Image",
+                  "Position": "0"
+                },
+                "MediaFieldSettings": {
+                  "Multiple": false,
+                  "AllowAnchors": true
+                }
+              }
+            }
+          ]
+        },
+        {
+          "Name": "Blockquote",
+          "Settings": {},
+          "ContentPartFieldDefinitionRecords": [
+            {
+              "FieldName": "TextField",
+              "Name": "Quote",
+              "Settings": {
+                "ContentPartFieldSettings": {
+                  "DisplayName": "Quote",
+                  "Editor": "TextArea",
+                  "Position": "0"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "Name": "Image",
+          "Settings": {
+            "Attachable": true
+          },
+          "ContentPartFieldDefinitionRecords": [
+            {
+              "FieldName": "MediaField",
+              "Name": "Media",
+              "Settings": {
+                "ContentPartFieldSettings": {
+                  "DisplayName": "Image",
+                  "Position": "0"
+                },
+                "MediaFieldSettings": {
+                  "Multiple": false,
+                  "Required": true
+                }
+              }
+            },
+            {
+              "FieldName": "TextField",
+              "Name": "Caption",
+              "Settings": {
+                "ContentPartFieldSettings": {
+                  "DisplayName": "Caption",
+                  "Position": "1"
+                },
+                "TextFieldSettings": {
+                  "Hint": "A description of the image used as title or alternate text"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "Name": "Paragraph",
+          "Settings": {},
+          "ContentPartFieldDefinitionRecords": [
+            {
+              "FieldName": "HtmlField",
+              "Name": "Content",
+              "Settings": {
+                "ContentPartFieldSettings": {
+                  "DisplayName": "Content",
+                  "Position": "0",
+                  "Editor": "Wysiwyg"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "Name": "RawHtml",
+          "Settings": {},
+          "ContentPartFieldDefinitionRecords": [
+            {
+              "FieldName": "HtmlField",
+              "Name": "Content",
+              "Settings": {
+                "ContentPartFieldSettings": {
+                  "DisplayName": "Content",
+                  "Position": "0",
+                  "Editor": "Multiline"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "Name": "Category",
+          "Settings": {},
+          "ContentPartFieldDefinitionRecords": [
+            {
+              "FieldName": "TextField",
+              "Name": "Icon",
+              "Settings": {
+                "ContentPartFieldSettings": {
+                  "DisplayName": "Icon",
+                  "Editor": "IconPicker",
+                  "Position": "0"
+                },
+                "TextFieldSettings": {
+                  "Required": true
+                }
+              }
+            }
+          ]
+        },
+        {
+          "Name": "WindBlogThemeSettings",
+          "Settings": {},
+          "ContentPartFieldDefinitionRecords": [
+            {
+              "FieldName": "MediaField",
+              "Name": "SiteLogo",
+              "Settings": {
+                "ContentPartFieldSettings": {
+                  "DisplayName": "Site Logo",
+                  "Position": "0"
+                }
+              }
+            },
+            {
+              "FieldName": "ThemeColorField",
+              "Name": "ThemeColor",
+              "Settings": {
+                "ContentPartFieldSettings": {
+                  "DisplayName": "Theme Color",
+                  "Position": "1"
+                },
+                "LuceneContentIndexSettings": {
+                  "Included": false,
+                  "Stored": false,
+                  "Keyword": false
+                }
+              }
+            }
+          ]
+        },
+
+        {
+          "Name": "FeaturedPostWidget",
+          "Settings": {},
+          "ContentPartFieldDefinitionRecords": [
+            {
+              "FieldName": "ContentPickerField",
+              "Name": "SelectedContent",
+              "Settings": {
+                "ContentPartFieldSettings": {
+                  "DisplayName": "SelectedContent"
+                },
+                "ContentPickerFieldSettings": {
+                  "Required": false,
+                  "Multiple": false,
+                  "DisplayAllContentTypes": false,
+                  "DisplayedContentTypes": [
+                    "Article",
+                    "BlogPost",
+                    "Page"
+                  ],
+                  "DisplayedStereotypes": [],
+                  "TitlePattern": "{{ Model.ContentItem.ContentType}}: {{ Model.ContentItem | display_text }}"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "Name": "NewsletterWidget",
+          "Settings": {},
+          "ContentPartFieldDefinitionRecords": [
+            {
+              "FieldName": "TextField",
+              "Name": "ButtonLabel",
+              "Settings": {
+                "ContentPartFieldSettings": {
+                  "DisplayName": "ButtonLabel",
+                  "Position": "0"
+                }
+              }
+            },
+            {
+              "FieldName": "TextField",
+              "Name": "WorkflowToken",
+              "Settings": {
+                "ContentPartFieldSettings": {
+                  "DisplayName": "WorkflowUrl",
+                  "Position": "1"
+                },
+                "TextFieldSettings": {
+                  "Required": false
+                },
+                "LuceneContentIndexSettings": {
+                  "Included": false,
+                  "Stored": false,
+                  "Keyword": false
+                }
+              }
+            }
+          ]
+        },
+        {
+          "Name": "ContentGridWidget",
+          "Settings": {},
+          "ContentPartFieldDefinitionRecords": [
+            {
+              "FieldName": "NumericField",
+              "Name": "Limit",
+              "Settings": {
+                "ContentPartFieldSettings": {
+                  "DisplayName": "Limit"
+                },
+                "NumericFieldSettings": {
+                  "Required": true,
+                  "Scale": 0,
+                  "DefaultValue": "5"
+                },
+                "LuceneContentIndexSettings": {
+                  "Included": false,
+                  "Stored": false,
+                  "Keyword": false
+                }
+              }
+            }
+          ]
+        },
+        {
+          "Name": "NavMenuWidget",
+          "Settings": {},
+          "ContentPartFieldDefinitionRecords": [
+            {
+              "FieldName": "ContentPickerField",
+              "Name": "Menu",
+              "Settings": {
+                "ContentPartFieldSettings": {
+                  "DisplayName": "Menu",
+                  "Position": "0"
+                },
+                "ContentPickerFieldSettings": {
+                  "Required": false,
+                  "Multiple": false,
+                  "DisplayAllContentTypes": false,
+                  "DisplayedContentTypes": [
+                    "Menu"
+                  ],
+                  "DisplayedStereotypes": [],
+                  "TitlePattern": "{{ Model.ContentItem | display_text }}"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "Name": "QueryPart",
+          "Settings": {
+            "ContentPartSettings": {
+              "Attachable": true,
+              "Reusable": false,
+              "Description": "Allows users to enter query for fetching items."
+            }
+          },
+          "ContentPartFieldDefinitionRecords": [
+            {
+              "FieldName": "TextField",
+              "Name": "Query",
+              "Settings": {
+                "ContentPartFieldSettings": {
+                  "DisplayName": "Query",
+                  "Position": "0"
+                },
+                "TextFieldSettings": {
+                  "Required": true,
+                  "Hint": "Enter the name of the query you want to load. You can find and define queries in \u0022Search \u003E Queries \u003E All queries\u0022."
+                }
+              }
+            }
+          ]
+        },
+        {
+          "Name": "SocialNetworkIcon",
+          "Settings": {},
+          "ContentPartFieldDefinitionRecords": [
+            {
+              "FieldName": "LinkField",
+              "Name": "Link",
+              "Settings": {
+                "ContentPartFieldSettings": {
+                  "DisplayName": "Link",
+                  "Position": "1"
+                }
+              }
+            },
+            {
+              "FieldName": "TextField",
+              "Name": "LucideIcon",
+              "Settings": {
+                "ContentPartFieldSettings": {
+                  "DisplayName": "Lucide Icon",
+                  "Position": "0"
+                }
               }
             }
           ]
@@ -102,18 +1383,1414 @@
       ]
     },
     {
-      "name": "feature",
-      "enable": [
-        // Themes
-        "TheBlogTheme",
-        "TheAdmin",
-        "WindBlogTheme.Theme"
+      "name": "custom-settings",
+      "WindBlogThemeSettings": {
+        "ContentItemId": "[js: uuid()]",
+        "Owner": "[js: parameters('AdminUserId')]",
+        "Author": "[js: parameters('AdminUsername')]",
+        "ContentType": "WindBlogThemeSettings",
+        "DisplayText": null,
+        "Latest": false,
+        "Published": false,
+        "ModifiedUtc": null,
+        "PublishedUtc": null,
+        "CreatedUtc": null,
+        "WindBlogThemeSettings": {
+          "SiteLogo": {
+            "Paths": [],
+            "MediaTexts": []
+          },
+          "ThemeColor": {
+            "Value": "#1e3a8a"
+          }
+        }
+      }
+    },
+    {
+      "name": "content",
+      "Data": [
+        {
+          "ContentType": "Menu",
+          "ContentItemId": "[js: variables('menuContentItemId')]",
+          "Owner": "[js: parameters('AdminUserId')]",
+          "Author": "[js: parameters('AdminUsername')]",
+          "DisplayText": "Main Menu",
+          "Latest": true,
+          "Published": true,
+          "MenuPart": {},
+          "TitlePart": {
+            "Title": "Main Menu"
+          },
+          "MenuItemsListPart": {
+            "MenuItems": [
+              {
+                "ContentType": "LinkMenuItem",
+                "ContentItemId": "[js: uuid()]",
+                "DisplayText": "Home",
+                "LinkMenuItemPart": {
+                  "Name": "Home",
+                  "Url": "~/"
+                }
+              },
+              {
+                "ContentType": "LinkMenuItem",
+                "ContentItemId": "[js: uuid()]",
+                "DisplayText": "About",
+                "LinkMenuItemPart": {
+                  "Name": "About",
+                  "Url": "~/about"
+                }
+              }
+            ]
+          },
+          "AliasPart": {
+            "Alias": "main-menu"
+          }
+        },
+        {
+          "ContentItemId": "[js: variables('footerLinksMenuContentItemId')]",
+          "Owner": "[js: parameters('AdminUserId')]",
+          "Author": "[js: parameters('AdminUsername')]",
+          "ContentType": "Menu",
+          "DisplayText": "FooterLinks",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2026-01-05T01:05:07.1788875Z",
+          "PublishedUtc": "2026-01-05T01:05:07.1828418Z",
+          "CreatedUtc": "2025-11-10T01:20:18.1090693Z",
+          "TitlePart": {
+            "Title": "FooterLinks"
+          },
+          "AliasPart": {
+            "Alias": "footerlinks"
+          },
+          "MenuPart": {},
+          "MenuItemsListPart": {
+            "MenuItems": [
+              {
+                "ContentItemId": "4p2msw3ft94bjwhb0ztbqn04c4",
+                "ContentItemVersionId": null,
+                "ContentType": "ContentMenuItem",
+                "DisplayText": "About",
+                "Latest": false,
+                "Published": false,
+                "ModifiedUtc": "2026-01-05T01:04:40.1483608Z",
+                "PublishedUtc": null,
+                "CreatedUtc": null,
+                "Owner": null,
+                "Author": "admin",
+                "ContentMenuItemPart": {
+                  "SelectedContentItem": {
+                    "ContentItemIds": [
+                      "[js: variables('aboutArticleContentItemId')]"
+                    ]
+                  }
+                },
+                "ContentMenuItem": {}
+              },
+              {
+                "ContentItemId": "4k0er3257w5t7sk69gjb9fwk5q",
+                "ContentItemVersionId": null,
+                "ContentType": "ContentMenuItem",
+                "DisplayText": "Contact",
+                "Latest": false,
+                "Published": false,
+                "ModifiedUtc": "2026-01-05T01:04:54.3718094Z",
+                "PublishedUtc": null,
+                "CreatedUtc": null,
+                "Owner": null,
+                "Author": "admin",
+                "ContentMenuItemPart": {
+                  "SelectedContentItem": {
+                    "ContentItemIds": [
+                      "[js: variables('contactPageContentItemId')]"
+                    ]
+                  }
+                },
+                "ContentMenuItem": {}
+              },
+              {
+                "ContentItemId": "4eehvrg7ttxkx6fp7rsxqmcawx",
+                "ContentItemVersionId": null,
+                "ContentType": "ContentMenuItem",
+                "DisplayText": "Privacy",
+                "Latest": false,
+                "Published": false,
+                "ModifiedUtc": "2026-01-05T01:05:03.4574497Z",
+                "PublishedUtc": null,
+                "CreatedUtc": null,
+                "Owner": null,
+                "Author": "admin",
+                "ContentMenuItemPart": {
+                  "SelectedContentItem": {
+                    "ContentItemIds": [
+                      "[js: variables('privacyPageContentItemId')]"
+                    ]
+                  }
+                },
+                "ContentMenuItem": {}
+              }
+            ]
+          },
+          "@WeldedPartSettings": {
+            "MenuPart": {
+              "Position": "3"
+            },
+            "MenuItemsListPart": {
+              "Position": "4"
+            }
+          }
+        },
+        {
+          "ContentItemId": "[js: variables('footerTopCategoriesMenuContentItemId')]",
+          "Owner": "[js: parameters('AdminUserId')]",
+          "Author": "[js: parameters('AdminUsername')]",
+          "ContentType": "Menu",
+          "DisplayText": "FooterTopCategories",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2026-01-05T01:10:44.3656157Z",
+          "PublishedUtc": "2026-01-05T01:10:44.3688702Z",
+          "CreatedUtc": "2026-01-05T01:06:06.4440579Z",
+          "TitlePart": {
+            "Title": "FooterTopCategories"
+          },
+          "AliasPart": {
+            "Alias": "footertopcategories"
+          },
+          "MenuPart": {},
+          "MenuItemsListPart": {
+            "MenuItems": [
+              {
+                "ContentItemId": "4r3gg0nzenrwz4r71b4e70xfmg",
+                "ContentItemVersionId": null,
+                "ContentType": "LinkMenuItem",
+                "DisplayText": "Technology",
+                "Latest": false,
+                "Published": false,
+                "ModifiedUtc": "2026-01-05T01:10:17.6880031Z",
+                "PublishedUtc": null,
+                "CreatedUtc": null,
+                "Owner": null,
+                "Author": "admin",
+                "LinkMenuItemPart": {
+                  "Url": "/categories/technology",
+                  "Target": null
+                },
+                "LinkMenuItem": {}
+              },
+              {
+                "ContentItemId": "478d4hbpejp7k65x4hkk78v6xt",
+                "ContentItemVersionId": null,
+                "ContentType": "LinkMenuItem",
+                "DisplayText": "Design",
+                "Latest": false,
+                "Published": false,
+                "ModifiedUtc": "2026-01-05T01:10:31.9025348Z",
+                "PublishedUtc": null,
+                "CreatedUtc": null,
+                "Owner": null,
+                "Author": "admin",
+                "LinkMenuItemPart": {
+                  "Url": "/categories/design",
+                  "Target": null
+                },
+                "LinkMenuItem": {}
+              },
+              {
+                "ContentItemId": "4fh3kr9hsjn4ss8skfyhza8bd6",
+                "ContentItemVersionId": null,
+                "ContentType": "LinkMenuItem",
+                "DisplayText": "Culture",
+                "Latest": false,
+                "Published": false,
+                "ModifiedUtc": "2026-01-05T01:10:43.3056878Z",
+                "PublishedUtc": null,
+                "CreatedUtc": null,
+                "Owner": null,
+                "Author": "admin",
+                "LinkMenuItemPart": {
+                  "Url": "/categories/culture",
+                  "Target": null
+                },
+                "LinkMenuItem": {}
+              }
+            ]
+          },
+          "@WeldedPartSettings": {
+            "MenuPart": {
+              "Position": "3"
+            },
+            "MenuItemsListPart": {
+              "Position": "4"
+            }
+          }
+        },
+        {
+          "ContentItemId": "[js: variables('tagsContentItemId')]",
+          "Owner": "[js: parameters('AdminUserId')]",
+          "Author": "[js: parameters('AdminUsername')]",
+          "ContentType": "Taxonomy",
+          "DisplayText": "Tags",
+          "Latest": true,
+          "Published": true,
+          "TitlePart": {
+            "Title": "Tags"
+          },
+          "AliasPart": {
+            "Alias": "tags"
+          },
+          "TaxonomyPart": {
+            "Terms": [
+              {
+                "ContentItemId": "[js: variables('earthTagContentItemId')]",
+                "ContentType": "Tag",
+                "DisplayText": "Earth",
+                "TitlePart": {
+                  "Title": "Earth"
+                },
+                "AutoroutePart": {
+                  "Path": "earth"
+                },
+                "TermPart": {
+                  "TaxonomyContentItemId": "[js: variables('tagsContentItemId')]"
+                }
+              },
+              {
+                "ContentItemId": "[js: variables('explorationTagContentItemId')]",
+                "ContentType": "Tag",
+                "DisplayText": "Exploration",
+                "TitlePart": {
+                  "Title": "Exploration"
+                },
+                "AutoroutePart": {
+                  "Path": "exploration"
+                },
+                "TermPart": {
+                  "TaxonomyContentItemId": "[js: variables('tagsContentItemId')]"
+                }
+              },
+              {
+                "ContentItemId": "[js: variables('spaceTagContentItemId')]",
+                "ContentType": "Tag",
+                "DisplayText": "Space",
+                "TitlePart": {
+                  "Title": "Space"
+                },
+                "AutoroutePart": {
+                  "Path": "space"
+                },
+                "TermPart": {
+                  "TaxonomyContentItemId": "[js: variables('tagsContentItemId')]"
+                }
+              }
+            ],
+            "TermContentType": "Tag"
+          },
+          "AutoroutePart": {
+            "Path": "tags",
+            "RouteContainedItems": true
+          }
+        },
+        {
+          "ContentItemId": "[js: variables('categoriesContentItemId')]",
+          "Owner": "[js: parameters('AdminUserId')]",
+          "Author": "[js: parameters('AdminUsername')]",
+          "ContentType": "Taxonomy",
+          "DisplayText": "Categories",
+          "Latest": true,
+          "Published": true,
+          "TitlePart": {
+            "Title": "Categories"
+          },
+          "AliasPart": {
+            "Alias": "categories"
+          },
+          "TaxonomyPart": {
+            "Terms": [
+              {
+                "ContentItemId": "[js: variables('categoryTravelContentItemId')]",
+                "ContentType": "Category",
+                "DisplayText": "Travel",
+                "Category": {
+                  "Icon": {
+                    "Text": "fas fa-globe-americas"
+                  }
+                },
+                "TitlePart": {
+                  "Title": "Travel"
+                },
+                "AutoroutePart": {
+                  "Path": "travel"
+                },
+                "TermPart": {
+                  "TaxonomyContentItemId": "[js: variables('categoriesContentItemId')]"
+                }
+              }
+            ],
+            "TermContentType": "Category"
+          },
+          "AutoroutePart": {
+            "Path": "categories",
+            "RouteContainedItems": true
+          }
+        },
+        {
+          "ContentItemId": "4kzzp70k57hd76k52qrt1qzrwb",
+          "ContentItemVersionId": "4jpa6zhzktgp0243d7js6h86xe",
+          "ContentType": "NavMenuWidget",
+          "DisplayText": "Categories",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2026-01-05T01:11:18.2198398Z",
+          "PublishedUtc": "2026-01-05T01:11:18.2228037Z",
+          "CreatedUtc": "2025-11-10T01:27:31.0844322Z",
+          "Owner": "4930kcfm79vba76r5zyx4eew4f",
+          "Author": "admin",
+          "NavMenuWidget": {
+            "Menu": {
+              "ContentItemIds": [
+                "[js: variables('footerTopCategoriesMenuContentItemId')]"
+              ]
+            }
+          },
+          "LayerMetadata": {
+            "RenderTitle": true,
+            "Position": 11,
+            "Zone": "Footer",
+            "Layer": "Always"
+          }
+        },
+        {
+          "ContentItemId": "4nabnfgnpddt54jqh1mbsgwpn8",
+          "ContentItemVersionId": "4s2fcahn2a3hbxjr70nd6yqvdq",
+          "ContentType": "NavMenuWidget",
+          "DisplayText": "Company",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2026-01-05T01:05:40.2283022Z",
+          "PublishedUtc": "2026-01-05T01:05:40.2317543Z",
+          "CreatedUtc": "2025-11-10T02:12:02.2235518Z",
+          "Owner": "4930kcfm79vba76r5zyx4eew4f",
+          "Author": "admin",
+          "NavMenuWidget": {
+            "Menu": {
+              "ContentItemIds": [
+                "[js: variables('footerLinksMenuContentItemId')]"
+              ]
+            }
+          },
+          "LayerMetadata": {
+            "RenderTitle": true,
+            "Position": 12,
+            "Zone": "Footer",
+            "Layer": "Always"
+          }
+        },
+        {
+          "ContentItemId": "4fynfm9n67ysq6y4s2hezxer57",
+          "ContentItemVersionId": "4hsmjsdn5gkew36mha26eazw5w",
+          "ContentType": "RelatedPostsWidget",
+          "DisplayText": "Related",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2025-12-12T01:18:26.1724004Z",
+          "PublishedUtc": "2025-12-12T01:18:26.1758869Z",
+          "CreatedUtc": "2025-12-11T00:24:51.6836339Z",
+          "Owner": "4930kcfm79vba76r5zyx4eew4f",
+          "Author": "admin",
+          "RelatedPostsWidget": {},
+          "LayerMetadata": {
+            "RenderTitle": false,
+            "Position": 1,
+            "Zone": "BlogPostArticleBelowContent",
+            "Layer": "BlogPostsArticle"
+          },
+          "TitlePart": {
+            "Title": "Related"
+          }
+        },
+        {
+          "ContentItemId": "4fbh9yq7paqj03z22wn015kbmm",
+          "ContentItemVersionId": "4am3atma3wzrbxy32wtvp69xn9",
+          "ContentType": "LogoWidget",
+          "DisplayText": null,
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2025-12-21T15:44:54.6248376Z",
+          "PublishedUtc": "2025-12-21T15:44:54.6723373Z",
+          "CreatedUtc": "2025-12-21T15:44:54.6248376Z",
+          "Owner": "4930kcfm79vba76r5zyx4eew4f",
+          "Author": "admin",
+          "LogoWidget": {},
+          "LayerMetadata": {
+            "RenderTitle": false,
+            "Position": 9,
+            "Zone": "Footer",
+            "Layer": "Always"
+          }
+        },
+        {
+          "ContentItemId": "4v4ksegzhwr6f02yse35xasyw0",
+          "ContentItemVersionId": "4pn2n4rys89thvc257x4hktan8",
+          "ContentType": "SocialNetworksWidget",
+          "DisplayText": "Follow Us",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2026-01-05T12:43:23.665837Z",
+          "PublishedUtc": "2026-01-05T12:43:23.8764815Z",
+          "CreatedUtc": "2026-01-05T01:12:21.1289309Z",
+          "Owner": "4930kcfm79vba76r5zyx4eew4f",
+          "Author": "admin",
+          "SocialNetworksWidget": {},
+          "BagPart": {
+            "ContentItems": [
+              {
+                "ContentItemId": "4d3bkr52h1y3ntsaskxx0bs3ck",
+                "ContentItemVersionId": null,
+                "ContentType": "SocialNetworkIcon",
+                "DisplayText": "Twitter",
+                "Latest": false,
+                "Published": false,
+                "ModifiedUtc": "2026-01-05T12:43:23.7029076Z",
+                "PublishedUtc": null,
+                "CreatedUtc": null,
+                "Owner": "4930kcfm79vba76r5zyx4eew4f",
+                "Author": "admin",
+                "SocialNetworkIcon": {
+                  "Link": {
+                    "Url": "https://twitter.com",
+                    "Text": null,
+                    "Target": null
+                  },
+                  "LucideIcon": {
+                    "Text": "twitter"
+                  }
+                },
+                "TitlePart": {
+                  "Title": "Twitter"
+                }
+              },
+              {
+                "ContentItemId": "4gq3dt99p12z4z8jtpfngfywdv",
+                "ContentItemVersionId": null,
+                "ContentType": "SocialNetworkIcon",
+                "DisplayText": "Facebook",
+                "Latest": false,
+                "Published": false,
+                "ModifiedUtc": "2026-01-05T12:43:23.857936Z",
+                "PublishedUtc": null,
+                "CreatedUtc": null,
+                "Owner": "4930kcfm79vba76r5zyx4eew4f",
+                "Author": "admin",
+                "SocialNetworkIcon": {
+                  "Link": {
+                    "Url": "https://facebook.com",
+                    "Text": null,
+                    "Target": null
+                  },
+                  "LucideIcon": {
+                    "Text": "facebook"
+                  }
+                },
+                "TitlePart": {
+                  "Title": "Facebook"
+                }
+              },
+              {
+                "ContentItemId": "4azrnw7dkf6jawd0ej9b3yacw1",
+                "ContentItemVersionId": null,
+                "ContentType": "SocialNetworkIcon",
+                "DisplayText": "Instagram",
+                "Latest": false,
+                "Published": false,
+                "ModifiedUtc": "2026-01-05T12:43:23.8606432Z",
+                "PublishedUtc": null,
+                "CreatedUtc": null,
+                "Owner": "4930kcfm79vba76r5zyx4eew4f",
+                "Author": "admin",
+                "SocialNetworkIcon": {
+                  "Link": {
+                    "Url": "https://instagram.com",
+                    "Text": null,
+                    "Target": null
+                  },
+                  "LucideIcon": {
+                    "Text": "instagram"
+                  }
+                },
+                "TitlePart": {
+                  "Title": "Instagram"
+                }
+              },
+              {
+                "ContentItemId": "46vsjw1b85z966p6xjf99p3nxv",
+                "ContentItemVersionId": null,
+                "ContentType": "SocialNetworkIcon",
+                "DisplayText": "LinkedIn",
+                "Latest": false,
+                "Published": false,
+                "ModifiedUtc": "2026-01-05T12:43:23.8637171Z",
+                "PublishedUtc": null,
+                "CreatedUtc": null,
+                "Owner": "4930kcfm79vba76r5zyx4eew4f",
+                "Author": "admin",
+                "SocialNetworkIcon": {
+                  "Link": {
+                    "Url": "https://linkedin.com",
+                    "Text": null,
+                    "Target": null
+                  },
+                  "LucideIcon": {
+                    "Text": "linkedin"
+                  }
+                },
+                "TitlePart": {
+                  "Title": "LinkedIn"
+                }
+              }
+            ]
+          },
+          "LayerMetadata": {
+            "RenderTitle": true,
+            "Position": 13,
+            "Zone": "Footer",
+            "Layer": "Always"
+          }
+        },
+        {
+          "ContentType": "Blog",
+          "ContentItemId": "[js: variables('blogContentItemId')]",
+          "DisplayText": "Blog",
+          "Latest": true,
+          "Published": true,
+          "Owner": "[js: parameters('AdminUserId')]",
+          "Author": "[js: parameters('AdminUsername')]",
+          "TitlePart": {
+            "Title": "Blog"
+          },
+          "HtmlBodyPart": {
+            "Html": "This is the description of your blog"
+          },
+          "AutoroutePart": {
+            "Path": "blog"
+          },
+          "ListPart": {},
+          "Blog": {
+            "Image": {
+              "Paths": [
+                "home-bg.jpg"
+              ],
+              "MediaTexts": [
+                ""
+              ],
+              "Anchors": [
+                {
+                  "X": 0.5,
+                  "Y": 0.5
+                }
+              ]
+            }
+          }
+        },
+        {
+          "ContentType": "BlogPost",
+          "ContentItemId": "[js: variables('blogPostContentItemId')]",
+          "DisplayText": "Man must explore, and this is exploration at its greatest",
+          "Latest": true,
+          "Published": true,
+          "Owner": "[js: parameters('AdminUserId')]",
+          "Author": "[js: parameters('AdminUsername')]",
+          "TitlePart": {
+            "Title": "Man must explore, and this is exploration at its greatest"
+          },
+          "ContainedPart": {
+            "ListContentItemId": "[js: variables('blogContentItemId')]",
+            "Order": 0
+          },
+          "MarkdownBodyPart": {
+            "Markdown": "Never in all their history have men been able truly to conceive of the world as one: a single sphere, a globe, having the qualities of a globe, a round earth in which all the directions eventually meet, in which there is no center because every point, or none, is center — an equal earth which all men occupy as equals. The airman's earth, if free men make it, will be truly round: a globe in practice, not in theory.\n\nScience cuts two ways, of course; its products can be used for both good and evil. But there's no turning back from science. The early warnings about technological dangers also come from science.\n\nWhat was most significant about the lunar voyage was not that man set foot on the Moon but that they set eye on the earth.\n\nA Chinese tale tells of some men sent to harm a young girl who, upon seeing her beauty, become her protectors rather than her violators. That's how I felt seeing the Earth for the first time. I could not help but love and cherish her.\n\nFor those who have seen the Earth from space, and for the hundreds and perhaps thousands more who will, the experience most certainly changes your perspective. The things that we share in our world are far more valuable than those which divide us."
+          },
+          "AutoroutePart": {
+            "Path": "blog/post-1"
+          },
+          "BlogPost": {
+            "Subtitle": {
+              "Text": "Problems look mighty small from 150 miles up"
+            },
+            "Image": {
+              "Paths": [
+                "post-bg.jpg"
+              ],
+              "MediaTexts": [
+                ""
+              ],
+              "Anchors": [
+                {
+                  "X": 0.5,
+                  "Y": 0.5
+                }
+              ]
+            },
+            "Tags": {
+              "TermContentItemIds": [
+                "[js: variables('earthTagContentItemId')]",
+                "[js: variables('explorationTagContentItemId')]",
+                "[js: variables('spaceTagContentItemId')]"
+              ],
+              "TaxonomyContentItemId": "[js: variables('tagsContentItemId')]",
+              "TagNames": [
+                "Earth",
+                "Exploration",
+                "Space"
+              ]
+            },
+            "Category": {
+              "TermContentItemIds": [
+                "[js: variables('categoryTravelContentItemId')]"
+              ],
+              "TaxonomyContentItemId": "[js: variables('categoriesContentItemId')]"
+            }
+          }
+        },
+        {
+          "ContentType": "BlogPost",
+          "ContentItemId": "[js: uuid()]",
+          "DisplayText": "Man must explore, and this is exploration at its greatest 2",
+          "Latest": true,
+          "Published": true,
+          "Owner": "[js: parameters('AdminUserId')]",
+          "Author": "[js: parameters('AdminUsername')]",
+          "TitlePart": {
+            "Title": "Man must explore, and this is exploration at its greatest 2"
+          },
+          "ContainedPart": {
+            "ListContentItemId": "[js: variables('blogContentItemId')]",
+            "Order": 0
+          },
+          "MarkdownBodyPart": {
+            "Markdown": "Never in all their history have men been able truly to conceive of the world as one: a single sphere, a globe, having the qualities of a globe, a round earth in which all the directions eventually meet, in which there is no center because every point, or none, is center — an equal earth which all men occupy as equals. The airman's earth, if free men make it, will be truly round: a globe in practice, not in theory.\n\nScience cuts two ways, of course; its products can be used for both good and evil. But there's no turning back from science. The early warnings about technological dangers also come from science.\n\nWhat was most significant about the lunar voyage was not that man set foot on the Moon but that they set eye on the earth.\n\nA Chinese tale tells of some men sent to harm a young girl who, upon seeing her beauty, become her protectors rather than her violators. That's how I felt seeing the Earth for the first time. I could not help but love and cherish her.\n\nFor those who have seen the Earth from space, and for the hundreds and perhaps thousands more who will, the experience most certainly changes your perspective. The things that we share in our world are far more valuable than those which divide us."
+          },
+          "AutoroutePart": {
+            "Path": "blog/post-2"
+          },
+          "BlogPost": {
+            "Subtitle": {
+              "Text": "Problems look mighty small from 150 miles up"
+            },
+            "Image": {
+              "Paths": [
+                "post-bg.jpg"
+              ],
+              "MediaTexts": [
+                ""
+              ],
+              "Anchors": [
+                {
+                  "X": 0.5,
+                  "Y": 0.5
+                }
+              ]
+            },
+            "Tags": {
+              "TermContentItemIds": [
+                "[js: variables('earthTagContentItemId')]",
+                "[js: variables('explorationTagContentItemId')]",
+                "[js: variables('spaceTagContentItemId')]"
+              ],
+              "TaxonomyContentItemId": "[js: variables('tagsContentItemId')]",
+              "TagNames": [
+                "Earth",
+                "Exploration",
+                "Space"
+              ]
+            },
+            "Category": {
+              "TermContentItemIds": [
+                "[js: variables('categoryTravelContentItemId')]"
+              ],
+              "TaxonomyContentItemId": "[js: variables('categoriesContentItemId')]"
+            }
+          }
+        },
+        {
+          "ContentItemId": "[js: variables('aboutArticleContentItemId')]",
+          "ContentType": "Article",
+          "DisplayText": "About",
+          "Latest": true,
+          "Published": true,
+          "Owner": "[js: parameters('AdminUserId')]",
+          "Author": "[js: parameters('AdminUsername')]",
+          "AutoroutePart": {
+            "Path": "about",
+            "SetHomepage": false
+          },
+          "HtmlBodyPart": {
+            "Html": "<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe nostrum ullam eveniet pariatur voluptates odit, fuga atque ea nobis sit soluta odio, adipisci quas excepturi maxime quae totam ducimus consectetur?</p><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius praesentium recusandae illo eaque architecto error, repellendus iusto reprehenderit, doloribus, minus sunt. Numquam at quae voluptatum in officia voluptas voluptatibus, minus!</p><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum molestiae debitis nobis, quod sapiente qui voluptatum, placeat magni repudiandae accusantium fugit quas labore non rerum possimus, corrupti enim modi! Et.</p>"
+          },
+          "TitlePart": {
+            "Title": "About"
+          },
+          "Article": {
+            "Subtitle": {
+              "Text": "This is what I do."
+            },
+            "Image": {
+              "Paths": [
+                "about-bg.jpg"
+              ]
+            }
+          }
+        },
+        {
+          "ContentItemId": "[js: variables('homePageContentItemId')]",
+          "Owner": "[js: parameters('AdminUserId')]",
+          "Author": "[js: parameters('AdminUsername')]",
+          "ContentType": "Page",
+          "DisplayText": "Home",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2026-01-05T12:22:28.7808668Z",
+          "PublishedUtc": "2026-01-05T12:22:28.894136Z",
+          "CreatedUtc": "2025-11-03T02:18:47.1862503Z",
+
+          "Page": {},
+          "AutoroutePart": {
+            "SetHomepage": true,
+            "Disabled": false,
+            "RouteContainedItems": false,
+            "Absolute": false,
+            "Path": "home"
+          },
+          "FlowPart": {
+            "Widgets": [
+              {
+                "ContentItemId": "4ghabkt5nwh23y7tg4ptyft2w7",
+                "ContentItemVersionId": null,
+                "ContentType": "AnnouncementWidget",
+                "DisplayText": "Welcome!",
+                "Latest": false,
+                "Published": false,
+                "ModifiedUtc": "2026-01-05T12:22:28.8230914Z",
+                "PublishedUtc": null,
+                "CreatedUtc": null,
+                "Owner": null,
+                "Author": "admin",
+                "AnnouncementWidget": {},
+                "HtmlBodyPart": {
+                  "Html": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe nostrum ullam eveniet pariatur voluptates odit, fuga atque ea nobis sit soluta odio, adipisci quas excepturi maxime quae totam ducimus consectetur?\n\nLorem ipsum dolor sit amet, consectetur adipisicing elit. Eius praesentium recusandae illo eaque architecto error, repellendus iusto reprehenderit, doloribus, minus sunt. Numquam at quae voluptatum in officia voluptas voluptatibus, minus!\n\nLorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum molestiae debitis nobis, quod sapiente qui voluptatum, placeat magni repudiandae accusantium fugit quas labore non rerum possimus, corrupti enim modi! Et."
+                },
+                "TitlePart": {
+                  "Title": "Welcome!"
+                },
+                "FlowMetadata": {
+                  "Alignment": "Justify",
+                  "Size": 100
+                }
+              },
+              {
+                "ContentItemId": "484dfxpyn3j5zy4gxbye9155m3",
+                "ContentItemVersionId": null,
+                "ContentType": "FeaturedPostWidget",
+                "DisplayText": null,
+                "Latest": false,
+                "Published": false,
+                "ModifiedUtc": "2026-01-05T12:22:28.8468995Z",
+                "PublishedUtc": null,
+                "CreatedUtc": null,
+                "Owner": null,
+                "Author": "admin",
+                "FeaturedPostWidget": {
+                  "SelectedContent": {
+                    "ContentItemIds": [
+                      "[js: variables('blogPostContentItemId')]"
+                    ]
+                  }
+                },
+                "FlowMetadata": {
+                  "Alignment": "Justify",
+                  "Size": 100
+                }
+              },
+              {
+                "ContentItemId": "4hajzevkvsqyvrzzfh2spks0mg",
+                "ContentItemVersionId": null,
+                "ContentType": "ContentGridWidget",
+                "DisplayText": "Latest Articles",
+                "Latest": false,
+                "Published": false,
+                "ModifiedUtc": "2026-01-05T12:22:28.8629601Z",
+                "PublishedUtc": null,
+                "CreatedUtc": null,
+                "Owner": null,
+                "Author": "admin",
+                "ContentGridWidget": {
+                  "Limit": {
+                    "Value": 3
+                  },
+                  "QueryName": {
+                    "Text": "RecentBlogPosts"
+                  }
+                },
+                "TitlePart": {
+                  "Title": "Latest Articles"
+                },
+                "QueryPart": {
+                  "Query": {
+                    "Text": "RecentBlogPosts"
+                  }
+                },
+                "FlowMetadata": {
+                  "Alignment": "Justify",
+                  "Size": 100
+                }
+              },
+              {
+                "ContentItemId": "41f4r7gp9cx0tsett4x3axv5dz",
+                "ContentItemVersionId": null,
+                "ContentType": "NewsletterWidget",
+                "DisplayText": "Subscribe to Our Newsletter",
+                "Latest": false,
+                "Published": false,
+                "ModifiedUtc": "2026-01-05T12:22:28.8791244Z",
+                "PublishedUtc": null,
+                "CreatedUtc": null,
+                "Owner": null,
+                "Author": "admin",
+                "NewsletterWidget": {
+                  "ButtonLabel": {
+                    "Text": "Subscribe"
+                  },
+                  "WorkflowToken": {
+                    "Text": null
+                  },
+                  "WorkflowId": {
+                    "Text": "1"
+                  }
+                },
+                "HtmlBodyPart": {
+                  "Html": "Get the latest articles and insights delivered directly to your inbox."
+                },
+                "TitlePart": {
+                  "Title": "Subscribe to Our Newsletter"
+                },
+                "FlowMetadata": {
+                  "Alignment": "Justify",
+                  "Size": 100
+                }
+              }
+            ]
+          },
+          "TitlePart": {
+            "Title": "Home"
+          }
+        },
+        {
+          "ContentItemId": "[js: variables('contactPageContentItemId')]",
+          "Owner": "[js: parameters('AdminUserId')]",
+          "Author": "[js: parameters('AdminUsername')]",
+          "ContentType": "Page",
+          "DisplayText": "Contact",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2026-01-05T01:36:25.6197218Z",
+          "PublishedUtc": "2026-01-05T01:36:25.6369722Z",
+          "CreatedUtc": "2026-01-05T00:27:14.4702553Z",
+          "Page": {},
+          "AutoroutePart": {
+            "SetHomepage": false,
+            "Disabled": false,
+            "RouteContainedItems": false,
+            "Absolute": false,
+            "Path": "contact"
+          },
+          "FlowPart": {
+            "Widgets": [
+              {
+                "ContentItemId": "47dhhv741mtwqyy79j135f9km6",
+                "ContentItemVersionId": null,
+                "ContentType": "Paragraph",
+                "DisplayText": null,
+                "Latest": false,
+                "Published": false,
+                "ModifiedUtc": "2026-01-05T01:36:25.6260151Z",
+                "PublishedUtc": null,
+                "CreatedUtc": null,
+                "Owner": null,
+                "Author": "admin",
+                "Paragraph": {
+                  "Content": {
+                    "Html": "\u003Cp\u003EHave a question or suggestion for us? Send us a message!\u003C/p\u003E"
+                  }
+                },
+                "FlowMetadata": {
+                  "Alignment": "Justify",
+                  "Size": 100
+                }
+              },
+              {
+                "ContentItemId": "4nw2hd24y8b1z24d6d20kyc9w4",
+                "ContentItemVersionId": null,
+                "ContentType": "Form",
+                "DisplayText": null,
+                "Latest": false,
+                "Published": false,
+                "ModifiedUtc": "2026-01-05T01:36:25.6280924Z",
+                "PublishedUtc": null,
+                "CreatedUtc": null,
+                "Owner": null,
+                "Author": "admin",
+                "TitlePart": {
+                  "Title": null
+                },
+                "FormElementPart": {
+                  "Id": null
+                },
+                "FormPart": {
+                  "EnableAntiForgeryToken": true,
+                  "SaveFormLocation": true,
+                  "Method": "POST",
+                  "EncType": "application/x-www-form-urlencoded",
+                  "Action": null,
+                  "WorkflowTypeId": null
+                },
+                "FlowPart": {
+                  "Widgets": [
+                    {
+                      "ContentItemId": "43stnkbfyjagx0wpx6bdma7y4w",
+                      "ContentItemVersionId": null,
+                      "ContentType": "Input",
+                      "DisplayText": "Name",
+                      "Latest": false,
+                      "Published": false,
+                      "ModifiedUtc": "2026-01-05T01:36:25.6301138Z",
+                      "PublishedUtc": null,
+                      "CreatedUtc": null,
+                      "Owner": null,
+                      "Author": "admin",
+                      "FormInputElementPart": {
+                        "Name": "Name"
+                      },
+                      "FormElementPart": {
+                        "Id": null
+                      },
+                      "FormElementLabelPart": {
+                        "Option": "Standard",
+                        "Label": "Your Name"
+                      },
+                      "InputPart": {
+                        "Type": "text",
+                        "DefaultValue": null,
+                        "Placeholder": null
+                      },
+                      "FormElementValidationPart": {
+                        "Option": "Standard"
+                      },
+                      "FlowMetadata": {
+                        "Alignment": "Justify",
+                        "Size": 100
+                      }
+                    },
+                    {
+                      "ContentItemId": "4tnhvqfyeq0hy5nph3h0yx5pn0",
+                      "ContentItemVersionId": null,
+                      "ContentType": "Input",
+                      "DisplayText": "Email",
+                      "Latest": false,
+                      "Published": false,
+                      "ModifiedUtc": "2026-01-05T01:36:25.6310054Z",
+                      "PublishedUtc": null,
+                      "CreatedUtc": null,
+                      "Owner": null,
+                      "Author": "admin",
+                      "FormInputElementPart": {
+                        "Name": "Email"
+                      },
+                      "FormElementPart": {
+                        "Id": null
+                      },
+                      "FormElementLabelPart": {
+                        "Option": "Standard",
+                        "Label": "Email"
+                      },
+                      "InputPart": {
+                        "Type": "email",
+                        "DefaultValue": null,
+                        "Placeholder": null
+                      },
+                      "FormElementValidationPart": {
+                        "Option": "Standard"
+                      },
+                      "FlowMetadata": {
+                        "Alignment": "Justify",
+                        "Size": 100
+                      }
+                    },
+                    {
+                      "ContentItemId": "4wydhfg85j502rc1req2zgk8nw",
+                      "ContentItemVersionId": null,
+                      "ContentType": "TextArea",
+                      "DisplayText": "Message",
+                      "Latest": false,
+                      "Published": false,
+                      "ModifiedUtc": "2026-01-05T01:36:25.632076Z",
+                      "PublishedUtc": null,
+                      "CreatedUtc": null,
+                      "Owner": null,
+                      "Author": "admin",
+                      "FormInputElementPart": {
+                        "Name": "Message"
+                      },
+                      "FormElementPart": {
+                        "Id": null
+                      },
+                      "FormElementLabelPart": {
+                        "Option": "Standard",
+                        "Label": "Message"
+                      },
+                      "TextAreaPart": {
+                        "DefaultValue": null,
+                        "Placeholder": null
+                      },
+                      "FormElementValidationPart": {
+                        "Option": "Standard"
+                      },
+                      "FlowMetadata": {
+                        "Alignment": "Justify",
+                        "Size": 100
+                      }
+                    },
+                    {
+                      "ContentItemId": "49nw57j5rczaa4azgsdnz13n56",
+                      "ContentItemVersionId": null,
+                      "ContentType": "Button",
+                      "DisplayText": "Submit",
+                      "Latest": false,
+                      "Published": false,
+                      "ModifiedUtc": "2026-01-05T01:36:25.6335934Z",
+                      "PublishedUtc": null,
+                      "CreatedUtc": null,
+                      "Owner": null,
+                      "Author": "admin",
+                      "FormInputElementPart": {
+                        "Name": "Submit"
+                      },
+                      "FormElementPart": {
+                        "Id": null
+                      },
+                      "ButtonPart": {
+                        "Text": "Send",
+                        "Type": "submit"
+                      },
+                      "FlowMetadata": {
+                        "Alignment": "Justify",
+                        "Size": 100
+                      }
+                    }
+                  ]
+                },
+                "FlowMetadata": {
+                  "Alignment": "Justify",
+                  "Size": 100
+                }
+              }
+            ]
+          },
+          "TitlePart": {
+            "Title": "Contact"
+          }
+        },
+        {
+          "ContentItemId": "[js: variables('privacyPageContentItemId')]",
+          "Owner": "[js: parameters('AdminUserId')]",
+          "Author": "[js: parameters('AdminUsername')]",
+          "ContentType": "Page",
+          "DisplayText": "Privacy",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2026-01-05T02:01:39.3751825Z",
+          "PublishedUtc": "2026-01-05T02:01:39.3837887Z",
+          "CreatedUtc": "2026-01-05T01:03:08.3833262Z",
+          "Page": {},
+          "AutoroutePart": {
+            "SetHomepage": false,
+            "Disabled": false,
+            "RouteContainedItems": false,
+            "Absolute": false,
+            "Path": "privacy"
+          },
+          "FlowPart": {
+            "Widgets": [
+              {
+                "ContentItemId": "449x7g1fcv8b1tg9t9kc62nnn3",
+                "ContentItemVersionId": null,
+                "ContentType": "Paragraph",
+                "DisplayText": null,
+                "Latest": false,
+                "Published": false,
+                "ModifiedUtc": "2026-01-23T03:13:21.0676649Z",
+                "PublishedUtc": null,
+                "CreatedUtc": null,
+                "Owner": null,
+                "Author": "admin",
+                "Paragraph": {
+                  "Content": {
+                    "Html": "\u003Ch2\u003ESection 1\u003C/h2\u003E\u003Cdiv\u003EThis is our privacy policy.\u003C/div\u003E"
+                  }
+                },
+                "FlowMetadata": {
+                  "Alignment": "Justify",
+                  "Size": 100
+                }
+              }
+            ]
+          },
+          "TitlePart": {
+            "Title": "Privacy"
+          }
+        }
       ]
     },
     {
-      "name": "themes",
-      "admin": "TheAdmin",
-      "site": "WindBlogTheme.Theme"
+      "name": "MediaProfiles",
+      "MediaProfiles": {
+        "banner": {
+          "Hint": "A banner image (2048px x 600px, cropped)",
+          "Width": 2048,
+          "Height": 600,
+          "Mode": 2,
+          "Format": 0,
+          "Quality": 100
+        }
+      }
+    },
+    {
+      "name": "media",
+      "Files": [
+        {
+          "TargetPath": "about-bg.jpg",
+          "SourcePath": "../wwwroot/assets/img/about-bg.jpg"
+        },
+        {
+          "TargetPath": "home-bg.jpg",
+          "SourcePath": "../wwwroot/assets/img/home-bg.jpg"
+        },
+        {
+          "TargetPath": "post-bg.jpg",
+          "SourcePath": "../wwwroot/assets/img/post-bg.jpg"
+        }
+      ]
+    },
+    {
+      "name": "layers",
+      "Layers": [
+        {
+          "Name": "Always",
+          "LayerRule": {
+            "ConditionId": "[js: uuid()]",
+            "Conditions": [
+              {
+                "$type": "OrchardCore.Rules.Models.BooleanCondition, OrchardCore.Rules",
+                "Name": "BooleanCondition",
+                "Value": true,
+                "ConditionId": "[js: uuid()]"
+              }
+            ]
+          },
+          "Description": "The widgets in this layer are displayed on any page of this site."
+        },
+        {
+          "Name": "Homepage",
+          "LayerRule": {
+            "ConditionId": "[js: uuid()]",
+            "Conditions": [
+              {
+                "$type": "OrchardCore.Rules.Models.HomepageCondition, OrchardCore.Rules",
+                "Name": "HomepageCondition",
+                "Value": true,
+                "ConditionId": "[js: uuid()]"
+              }
+            ]
+          },
+          "Description": "The widgets in this layer are only displayed on the homepage."
+        },
+        {
+          "Name": "BlogPostsArticle",
+          "LayerRule": {
+            "Conditions": [
+              {
+                "$type": "OrchardCore.Rules.Models.ContentTypeCondition, OrchardCore.Rules",
+                "Value": "BlogPost",
+                "Operation": {
+                  "$type": "OrchardCore.Rules.Models.StringEqualsOperator, OrchardCore.Rules",
+                  "CaseSensitive": false
+                },
+                "Name": "ContentTypeCondition",
+                "ConditionId": "[js: uuid()]"
+              }
+            ],
+            "ConditionId": "[js: uuid()]"
+          }
+        }
+      ]
+    },
+    {
+      "name": "queries",
+      "Queries": [
+        {
+          "Source": "Sql",
+          "Name": "RecentBlogPosts",
+          "Template": "SELECT DocumentId FROM ContentItemIndex WHERE ContentType='BlogPost' ORDER BY CreatedUtc DESC LIMIT @limit:3",
+          "Schema": "[js:base64('ew0KICAgICJ0eXBlIjogIkNvbnRlbnRJdGVtL0Jsb2dQb3N0Ig0KfQ==')]",
+          "ReturnContentItems": true
+        },
+        {
+          "Name": "TaxonomyTermItemsCount",
+          "Source": "Sql",
+          "Schema": "{\r\n    \r\n}",
+          "ReturnContentItems": false,
+          "Properties": {
+            "SqlQueryMetadata": {
+              "Template": "SELECT COUNT(*) AS result FROM TaxonomyIndex WHERE TaxonomyContentItemId = @taxonomyContentItemId AND  TermContentItemId = @termContentItemId AND Published = 1"
+            }
+          }
+        },
+        {
+          "Name": "CategoryPosts",
+          "Source": "Sql",
+          "Schema": "{\r\n    \u0022type\u0022: \u0022ContentItem/BlogPost\u0022\r\n}",
+          "ReturnContentItems": true,
+          "Properties": {
+            "SqlQueryMetadata": {
+              "Template": "SELECT DocumentId FROM TaxonomyIndex \r\nWHERE TermContentItemId = @categoryId \r\nAND TaxonomyIndex.Latest = True \r\nAND TaxonomyIndex.Published = True\r\nAND ContentType = \u0027BlogPost\u0027\r\nLIMIT @limit:3\r\n;"
+            }
+          }
+        },
+        {
+          "Name": "RandomCategoryPosts",
+          "Source": "Sql",
+          "Schema": "{\r\n    \u0022type\u0022: \u0022ContentItem/BlogPost\u0022\r\n}",
+          "ReturnContentItems": true,
+          "Properties": {
+            "SqlQueryMetadata": {
+              "Template": "SELECT DocumentId FROM TaxonomyIndex \r\nWHERE TermContentItemId = @categoryId \r\nAND TaxonomyIndex.Latest = True \r\nAND TaxonomyIndex.Published = True\r\nAND ContentType = \u0027BlogPost\u0027\r\nORDER BY random()\r\nLIMIT @limit:3\r\n;"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "AdminMenu",
+      "data": [
+        {
+          "Id": "baef6f85ad13481681cde70ada401333",
+          "Name": "Admin menus",
+          "Enabled": true,
+          "MenuItems": [
+            {
+              "$type": "OrchardCore.AdminMenu.AdminNodes.LinkAdminNode, OrchardCore.AdminMenu",
+              "LinkText": "Blog",
+              "LinkUrl": "[js: variables('adminUrlPrefix') + '/Contents/ContentItems/' +  variables('blogContentItemId') + '/Display']",
+              "IconClass": "fas fa-rss",
+              "PermissionNames": [],
+              "UniqueId": "7b293d57056a4eebb3713f07f12c65d8",
+              "Enabled": true,
+              "Text": null,
+              "Id": null,
+              "Href": null,
+              "Url": null,
+              "Position": null,
+              "LinkToFirstChild": true,
+              "LocalNav": false,
+              "Culture": null,
+              "Items": [],
+              "Classes": []
+            },
+            {
+              "$type": "OrchardCore.AdminMenu.AdminNodes.LinkAdminNode, OrchardCore.AdminMenu",
+              "LinkText": "Main Menu",
+              "LinkUrl": "[js: variables('adminUrlPrefix') + '/Contents/ContentItems/' +  variables('menuContentItemId') + '/Edit']",
+              "IconClass": "fas fa-sitemap",
+              "PermissionNames": [],
+              "UniqueId": "5118cecfde834dacb26ac08980f1b5a7",
+              "Enabled": true,
+              "Text": null,
+              "Id": null,
+              "Href": null,
+              "Url": null,
+              "Position": null,
+              "LinkToFirstChild": true,
+              "LocalNav": false,
+              "Culture": null,
+              "Items": [],
+              "Classes": []
+            },
+            {
+              "$type": "OrchardCore.AdminMenu.AdminNodes.PlaceholderAdminNode, OrchardCore.AdminMenu",
+              "LinkText": "Content",
+              "IconClass": null,
+              "PermissionNames": [],
+              "UniqueId": "3e590d44f8704e4588e272dd966ce291",
+              "Enabled": true,
+              "Text": null,
+              "Id": null,
+              "Href": null,
+              "Url": null,
+              "Position": null,
+              "LinkToFirstChild": true,
+              "LocalNav": false,
+              "Culture": null,
+              "Items": [
+                {
+                  "$type": "OrchardCore.AdminMenu.AdminNodes.LinkAdminNode, OrchardCore.AdminMenu",
+                  "LinkText": "Content Items",
+                  "LinkUrl": "[js: variables('adminUrlPrefix') + '/Contents/ContentItems/']",
+                  "IconClass": null,
+                  "UniqueId": "7b293d57056a4eebb3713f07f12c65d9",
+                  "Enabled": true,
+                  "Text": null,
+                  "Id": null,
+                  "Href": null,
+                  "Url": null,
+                  "Position": "0",
+                  "LinkToFirstChild": true,
+                  "LocalNav": false,
+                  "Culture": null,
+                  "Items": [],
+                  "Classes": []
+                },
+                {
+                  "$type": "OrchardCore.Contents.AdminNodes.ContentTypesAdminNode, OrchardCore.Contents",
+                  "ShowAll": false,
+                  "ContentTypes": [
+                    {
+                      "ContentTypeId": "Article"
+                    },
+                    {
+                      "ContentTypeId": "Page"
+                    },
+                    {
+                      "ContentTypeId": "Taxonomy"
+                    }
+                  ],
+                  "UniqueId": "ee18224e1b814c638b0732678b74cfd9",
+                  "Enabled": true,
+                  "Text": null,
+                  "Id": null,
+                  "Href": null,
+                  "Url": null,
+                  "Position": null,
+                  "LinkToFirstChild": true,
+                  "LocalNav": false,
+                  "Culture": null,
+                  "Items": [],
+                  "Classes": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
     }
   ]
 }
