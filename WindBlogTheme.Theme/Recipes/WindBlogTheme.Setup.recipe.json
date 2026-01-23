@@ -27,8 +27,10 @@
     "explorationTagContentItemId": "[js:uuid()]",
     "spaceTagContentItemId": "[js:uuid()]",
     "categoriesContentItemId": "[js:uuid()]",
-    "categoryTravelContentItemId": "[js:uuid()]"
+    "categoryTravelContentItemId": "[js:uuid()]",
     // "now": "[js: new Date().toISOString()]"
+    "workflowRequestId": "[js:uuid()]",
+    "workflowActivityId": "[js:uuid()]"
   },
 
   "steps": [
@@ -80,7 +82,9 @@
         "OrchardCore.Title",
         "OrchardCore.Templates",
         "OrchardCore.Widgets",
-
+        // Workflows
+        "OrchardCore.Workflows",
+        "OrchardCore.Workflows.Http",
         // Themes
         "WindBlogTheme.Theme",
         "TheAdmin",
@@ -128,6 +132,68 @@
       "LayerSettings": {
         "Zones": [ "Content", "Footer", "BlogPostArticleBelowContent" ]
       }
+    },
+    {
+      "name": "WorkflowType",
+      "data": [
+        {
+          "WorkflowTypeId": "[js: uuid()]",
+          "Name": "SubscribeWorkflow",
+          "IsEnabled": true,
+          "IsSingleton": false,
+          "LockTimeout": 0,
+          "LockExpiration": 0,
+          "DeleteFinishedWorkflows": false,
+          "Activities": [
+            {
+              "ActivityId": "[js: variables('workflowRequestId')]",
+              "Name": "HttpRequestEvent",
+              "X": 80,
+              "Y": 40,
+              "IsStart": true,
+              "Properties": {
+                "ActivityMetadata": {
+                  "Title": "Request Incoming"
+                },
+                "HttpMethod": "POST",
+                "Url": "/workflows/Invoke?token=CfDJ8JgzZX_K7jdKqQwNnMG5fVTemOih6jPF95nT0obvlPQLc2zXMfljeMdiOFg7Ru62jIp6O4taQJqvf2dCYzgbLLkKYoITiAO0B-HeUDaHQVYFyxDJ0sOeUOqJBXuajyZAdkANfxJgQ-w-Tdb7Jvb3qyZdis68PEaTXQf3_z6xtCWy-bxavqNWaW7bFMwAb8GJcaCoPPic6wCX83EcYPHTophXO0Q1G3NBfi_qvrje3toq",
+                "ValidateAntiforgeryToken": true,
+                "TokenLifeSpan": 0,
+                "FormLocationKey": ""
+              }
+            },
+            {
+              "ActivityId": "[js: variables('workflowActivityId')]",
+              "Name": "HttpResponseTask",
+              "X": 510,
+              "Y": 50,
+              "IsStart": false,
+              "Properties": {
+                "ActivityMetadata": {
+                  "Title": "Subscribing successfull"
+                },
+                "HttpStatusCode": 200,
+                "Content": {
+                  "Expression": "{\u0022message\u0022: \u0022Congratulations, the workflow works. However, you will need to configure it according to your email service so your users are actually subscribed.\u0022}"
+                },
+                "ContentType": {
+                  "Expression": "application/json"
+                },
+                "Headers": {}
+              }
+            }
+          ],
+          "Transitions": [
+            {
+              "Id": 0,
+              "SourceActivityId": "[js: variables('workflowRequestId')]",
+              "SourceOutcomeName": "Done",
+              "DestinationActivityId": "[js: variables('workflowActivityId')]"
+            }
+          ],
+          "Properties": {}
+        }
+      ]
     },
     {
       "name": "ContentDefinition",
@@ -1259,7 +1325,7 @@
             },
             {
               "FieldName": "TextField",
-              "Name": "WorkflowToken",
+              "Name": "WorkflowUrl",
               "Settings": {
                 "ContentPartFieldSettings": {
                   "DisplayName": "WorkflowUrl",
@@ -2261,11 +2327,8 @@
                   "ButtonLabel": {
                     "Text": "Subscribe"
                   },
-                  "WorkflowToken": {
-                    "Text": null
-                  },
-                  "WorkflowId": {
-                    "Text": "1"
+                  "WorkflowUrl": {
+                    "Text": ""
                   }
                 },
                 "HtmlBodyPart": {

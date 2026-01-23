@@ -9,11 +9,21 @@
         <p class="text-gray-300 mb-8">
             @contentItem.Content.HtmlBodyPart.Html
         </p>
-        <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <input type="email" placeholder="Enter your email" class="bg-[#ffffff] px-6 py-3 rounded-lg flex-1 max-w-md" />
-            <button class="bg-[#ef4444] text-white px-8 py-3 rounded-lg font-semibold hover:bg-[#dc2626] transition-colors hover:cursor-pointer">
-                @newsletterWidget.ButtonLabel.Text
-            </button>
-        </div>
+
+        @if (newsletterWidget.WorkflowUrl.Text == null && string.IsNullOrEmpty(newsletterWidget.WorkflowUrl.Text))
+            {
+                <p class="bg-[#ff0000] rounded-lg p-4 text-white mb-8">
+                    @T["The Workflow URL is empty. This means your users can't subscribe. Go to your widget and paste the workflow URL. To define a new, or see existing workflows, go to the admin menu and choose \"Workflows\"."]
+                </p>
+            }
+        <form action="@(newsletterWidget.WorkflowUrl.Text ?? "")" method="post">
+            @Html.AntiForgeryToken()
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <input type="email" placeholder="Enter your email" class="bg-[#ffffff] px-6 py-3 rounded-lg flex-1 max-w-md" />
+                <button class="bg-[#ef4444] text-white px-8 py-3 rounded-lg font-semibold hover:bg-[#dc2626] transition-colors hover:cursor-pointer">
+                    @newsletterWidget.ButtonLabel.Text
+                </button>
+            </div>
+        </form>
     </div>
 </section>
