@@ -16,7 +16,10 @@ public static class SiteServiceExtensions
     public static async Task<string> GetPrimaryColorClassAsync(this ISiteService siteService, string prefix = "bg")
     {
         var settings = (await siteService.GetCustomSettingsAsync(ContentTypes.WindBlogThemeSettings)).As<WindBlogThemeSettings>();
-        return ColorClasses.GetColorClass(settings.ThemeColor.Value, prefix)
-            ?? ColorClasses.GetColorClass(ColorClasses.SupportedColors.First());
+        if(settings != null && settings.ThemeColor.Value != null)
+        {
+            return ColorClasses.GetColorClass(settings.ThemeColor.Value, prefix);
+        }
+        return ColorClasses.GetColorClass(ColorClasses.SupportedColors.First());
     }
 }

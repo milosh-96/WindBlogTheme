@@ -4,7 +4,7 @@
 
 @{
     WindBlogThemeSettings themeSettings = (await _siteService.GetCustomSettingsAsync(ContentTypes.WindBlogThemeSettings)).As<WindBlogThemeSettings>();
-    var logo = (themeSettings.SiteLogo != null && themeSettings.SiteLogo.Paths.Count() > 0) ? themeSettings.SiteLogo.Paths.First() : null;
+    var logo = (themeSettings != null && themeSettings.SiteLogo.Paths.Count() > 0) ? themeSettings.SiteLogo.Paths.First() : null;
 }
 
 <div class="text-2xl font-bold py-4">
