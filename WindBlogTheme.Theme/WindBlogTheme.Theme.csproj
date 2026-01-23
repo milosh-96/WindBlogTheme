@@ -12,19 +12,19 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="OrchardCore.ContentFields" Version="2.2.0" />
-    <PackageReference Include="OrchardCore.Theme.Targets" Version="2.2.0" />
-    <PackageReference Include="OrchardCore.ContentManagement" Version="2.2.0" />
-    <PackageReference Include="OrchardCore.DisplayManagement" Version="2.2.0" />
-    <PackageReference Include="OrchardCore.ResourceManagement" Version="2.2.0" />
-    <PackageReference Include="OrchardCore.Menu" Version="2.2.0" />
-    <PackageReference Include="OrchardCore.Resources" Version="2.2.0" />
-    <PackageReference Include="OrchardCore.Contents" Version="2.2.0" />
-    <PackageReference Include="OrchardCore.Media" Version="2.2.0" />
-    <PackageReference Include="OrchardCore.Taxonomies" Version="2.2.0" />
-    <PackageReference Include="OrchardCore.Queries" Version="2.2.0" />
-    <PackageReference Include="OrchardCore.Markdown" Version="2.2.0" />
-    <PackageReference Include="OrchardCore.Localization.Abstractions" Version="2.2.0" />
+    <PackageReference Include="OrchardCore.ContentFields" Version="2.2.1" />
+    <PackageReference Include="OrchardCore.Theme.Targets" Version="2.2.1" />
+    <PackageReference Include="OrchardCore.ContentManagement" Version="2.2.1" />
+    <PackageReference Include="OrchardCore.DisplayManagement" Version="2.2.1" />
+    <PackageReference Include="OrchardCore.ResourceManagement" Version="2.2.1" />
+    <PackageReference Include="OrchardCore.Menu" Version="2.2.1" />
+    <PackageReference Include="OrchardCore.Resources" Version="2.2.1" />
+    <PackageReference Include="OrchardCore.Contents" Version="2.2.1" />
+    <PackageReference Include="OrchardCore.Media" Version="2.2.1" />
+    <PackageReference Include="OrchardCore.Taxonomies" Version="2.2.1" />
+    <PackageReference Include="OrchardCore.Queries" Version="2.2.1" />
+    <PackageReference Include="OrchardCore.Markdown" Version="2.2.1" />
+    <PackageReference Include="OrchardCore.Localization.Abstractions" Version="2.2.1" />
   </ItemGroup>
 
   <ItemGroup>
