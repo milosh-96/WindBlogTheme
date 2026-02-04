@@ -20,6 +20,14 @@
     @apply bg-[#ffffff];
 }
 
+.bg-efefef {
+    @apply bg-[#efefef];
+}
+
+.text-efefef {
+    @apply text-[#efefef];
+}
+
 .text-ffffff, .text-white {
     @apply text-[#ffffff];
 }
@@ -72,6 +80,9 @@
     @apply text-[#7f8c8d];
 }
 
+h3 {
+    @apply text-2xl;
+}
 
 
 blockquote {
