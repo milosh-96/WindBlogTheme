@@ -8,5 +8,6 @@ namespace WindBlogTheme.Theme.Settings;
 public class WindBlogThemeSettings : ContentPart
 {
     public MediaField SiteLogo { get; init; } = new();
+    public MediaField SiteIcon { get; init; } = new();
     public ThemeColorField ThemeColor { get; init; } = new();
 }

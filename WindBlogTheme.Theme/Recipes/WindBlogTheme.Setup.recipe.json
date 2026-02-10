@@ -118,6 +118,11 @@
           "Name": "Contributor",
           "Description": "Grants users the ability to contribute content.",
           "Permissions": []
+        },
+        {
+          "Name": "Anonymous",
+          "Description": "",
+          "Permissions": []
         }
       ]
     },
@@ -1265,6 +1270,16 @@
               }
             },
             {
+              "FieldName": "MediaField",
+              "Name": "SiteIcon",
+              "Settings": {
+                "ContentPartFieldSettings": {
+                  "DisplayName": "Site Icon",
+                  "Position": "0"
+                }
+              }
+            },
+            {
               "FieldName": "ThemeColorField",
               "Name": "ThemeColor",
               "Settings": {
@@ -1463,6 +1478,10 @@
         "CreatedUtc": null,
         "WindBlogThemeSettings": {
           "SiteLogo": {
+            "Paths": [],
+            "MediaTexts": []
+          },
+          "SiteIcon": {
             "Paths": [],
             "MediaTexts": []
           },

@@ -1,11 +1,16 @@
 ﻿@using OrchardCore.Settings
 @using WindBlogTheme.Theme.Settings
+@{
+    WindBlogThemeSettings themeSettings = (await _siteService.GetCustomSettingsAsync(ContentTypes.WindBlogThemeSettings)).As<WindBlogThemeSettings>();
+    var icon = (themeSettings != null && themeSettings.SiteIcon.Paths.Count() > 0) ? themeSettings.SiteIcon.Paths.First() : null;
 
+}
 <!DOCTYPE html>
 <html lang="@Orchard.CultureName()" dir="@Orchard.CultureDir()">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="@Orchard.AssetUrl(icon)">
     <title>@RenderTitleSegments(Site.SiteName, "before")</title>
     <style asp-name="@ResourceNames.TailwindCss"></style>
     <resources type="Meta" />
@@ -15,7 +20,6 @@
 </head>
 <body class="min-h-screen w-full bg-white">
     @{
-        WindBlogThemeSettings themeSettings = (await _siteService.GetCustomSettingsAsync(ContentTypes.WindBlogThemeSettings)).As<WindBlogThemeSettings>();
         string primaryColorClass = await _siteService.GetPrimaryColorClassAsync();
     }
     <header class="@primaryColorClass text-white">
