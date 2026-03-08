@@ -8,7 +8,7 @@
     var fieldName = formInputElementPart.Name;
     var fieldId = !string.IsNullOrEmpty(elementId) ? elementId : !string.IsNullOrEmpty(fieldName) ? Html.GenerateIdFromName(fieldName) : default(string);
     var fieldValue = Model.Value.DefaultValue;
-    var fieldClass = Model.Value.Type == "checkbox" ? "form-check-input" : "bg-efefef px-6 py-3 rounded-lg flex-1 w-full";
+    var fieldClass = Model.Value.Type == "checkbox" ? "form-check-input" : "w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#ef4444] focus:border-transparent outline-none transition-shadow";
     var isChecked = false;
 
     if (ViewData.ModelState.TryGetValue(fieldName, out var fieldEntry))

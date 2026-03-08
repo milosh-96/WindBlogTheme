@@ -1,0 +1,10 @@
+@using OrchardCore.DisplayManagement.Views
+@using OrchardCore.Forms.Models
+@model ShapeViewModel<LabelPart>
+
+@{
+    var contentItem = Model.Value.ContentItem;
+    var formElementPart = contentItem.As<FormElementPart>();
+    var labelClasses = "block text-sm font-medium text-gray-700 mb-2";
+}
+<label id="@formElementPart.Id" for="@Model.Value.For" class="@labelClasses form-label">@contentItem.DisplayText</label>
